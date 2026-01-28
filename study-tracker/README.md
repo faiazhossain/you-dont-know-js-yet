@@ -1,35 +1,42 @@
-# You Don't Know JS Yet (2nd Edition) - Complete Study Guide
+# You Don't Know JS Yet (2nd Edition) - 6-Month Intensive Study Guide
 
-This directory contains a comprehensive study environment for the "You Don't Know JS Yet" book series (2nd Edition) by Kyle Simpson.
+This directory contains a comprehensive 6-month study environment for the "You Don't Know JS Yet" book series (2nd Edition) by Kyle Simpson.
+
+**Duration**: 26 weeks (180 days)
+**Goal**: Deep understanding of core JavaScript concepts through focused, intensive study
+**Commitment**: 15-20 hours per week
 
 ---
 
 ## Quick Start
 
 1. **Start here**: Read `/ydkjs-books/preface.md` - This sets the philosophy and approach
-2. **Follow the curriculum**: Check `CURRICULUM.md` for day-by-day schedule
+2. **Follow the curriculum**: Check `CURRICULUM.md` for 6-month day-by-day schedule
 3. **Track progress**: Update `progress/tracker.md` as you complete each section
 4. **Take notes**: Use the note templates in each chapter folder
 5. **Practice**: Complete exercises in each book's exercises folder
+6. **Build projects**: Weekly practice projects to solidify learning
+
+**6-Month Commitment**: 15-20 hours/week (2-3 hrs weekdays, 3-4 hrs weekends)
 
 ---
 
-## Study Philosophy (from Preface)
+## Study Philosophy (6-Month Intensive Track)
 
 **Key Principles:**
-- Don't binge-read - spread out your learning
+- Focused, intensive study with daily consistency
 - Read each chapter completely first, then re-read section by section
-- Practice code between sections
-- Spend 1-2 weeks per chapter, 1-2 months per book
-- A year or more for the whole series
+- Practice code between sections (50+ lines daily minimum)
+- 7-8 days per chapter, 5-7 weeks per book, 6 months total
 - Always ask "WHY?" - understand HOW your code works
+- Build projects weekly to solidify learning
 
-**Recommended Approach:**
-1. First pass: Read entire chapter without stopping
-2. Second pass: Re-read section by section
-3. Practice each concept with code
-4. Apply to real projects
-5. Teach/discuss with others
+**Recommended Approach (6-Month Accelerated):**
+1. First pass: Read entire chapter without stopping (Days 1-2)
+2. Second pass: Re-read section by section with intensive practice (Days 3-6)
+3. Practice each concept with code (20+ examples per concept)
+4. Apply to real projects (weekly practice projects)
+5. Teach/discuss with others (explain concepts out loud)
 
 ---
 
@@ -97,27 +104,35 @@ study-tracker/
 
 ---
 
-## How to Use This Study Environment
+## How to Use This Study Environment (6-Month Track)
 
 ### 1. Daily Study Routine
 
-For each chapter section:
+For each chapter section (2-3 hours daily):
 
 ```bash
-# 1. Read the section from the book
+# 1. Read the section from the book (30-45 min)
 # File location: ydkjs-books/[book-name]/chX.md
 
-# 2. Open the corresponding note template
+# 2. Open the corresponding note template (15-20 min)
 # File location: study-tracker/books/[book-name]/chapters/chX/[section].md
 
 # 3. Take notes, write questions, code examples
 
-# 4. Practice with exercises
+# 4. Code along with examples (30-45 min)
+# Write 20+ examples for each concept
+
+# 5. Practice with exercises (30-45 min)
 # File location: study-tracker/books/[book-name]/exercises/chX.md
 
-# 5. Update your progress
+# 6. Update your progress (5 min)
 # File location: study-tracker/progress/tracker.md
+
+# 7. Quick journal reflection (5-10 min)
+# File location: study-tracker/progress/journal.md
 ```
+
+**Minimum Daily Output: 50+ lines of JavaScript code**
 
 ### 2. Note-Taking Templates
 
@@ -144,25 +159,26 @@ Use `progress/journal.md` to:
 
 ---
 
-## Suggested Schedule
+## Suggested Schedule (6-Month Intensive Track)
 
-**Per Chapter (1-2 weeks):**
+**Per Chapter (7-8 days):**
 - Days 1-2: Complete read-through
-- Days 3-7: Section-by-section deep dive with practice
-- Days 8-10: Review, exercises, real-world application
-- Days 11-14: Build projects, discuss with others
+- Days 3-6: Section-by-section deep dive with intensive practice
+- Day 7: Exercises, review, real-world application
+- Day 8: Buffer for difficult concepts, catch-up
 
-**Per Book (1-2 months):**
+**Per Book (5-7 weeks):**
 - Complete all chapters
 - Complete all appendices
-- Build 2-3 substantial projects
-- Review and consolidate
+- Build 4-5 practice projects
+- Complete capstone project
 
-**Full Series (9-12 months):**
+**Full Series (26 weeks / 6 months):**
 - Complete all 4 books
-- Build comprehensive portfolio projects
-- Teach concepts to others
-- Revisit difficult topics
+- Build 20+ practice projects
+- Build 5+ capstone projects
+- Write 2000+ lines of code
+- Master core JavaScript concepts
 
 ---
 
@@ -177,11 +193,19 @@ Use `progress/journal.md` to:
 
 ## Important Reminders
 
-From the preface:
+From the preface (adapted for 6-month track):
 
 > "You could spend a week or two on each chapter, and a month or two on each book, and a year or more on the whole series, and you would still not be squeezing every ounce of YDKJSY out."
 
+**6-Month Intensive Track Note:**
+This curriculum compresses the author's recommended timeline into 6 months. This requires:
+- 15-20 hours per week commitment
+- Daily consistency (2-3 hours on weekdays, 3-4 hours on weekends)
+- Active coding (50+ lines daily minimum)
+- Building projects weekly
+
 > "Don't binge these books; be patient and spread out your reading."
+> (In 6-month track: focus on depth through practice, not speed reading)
 
 > "Good enough to work is not, and should not be, good enough."
 
@@ -196,16 +220,33 @@ From the preface:
 
 ---
 
-## Study Tips
+## Study Tips (6-Month Intensive)
 
+**Daily Habits:**
 - Always ask "WHY?" - Understand the mechanics
-- Code along with examples
+- Code along with examples (50+ lines daily minimum)
 - Build small experiments for each concept
 - Connect concepts across chapters
-- Discuss with others
-- Teach what you learn
-- Write blog posts or notes
-- Revisit chapters after finishing
+- Explain concepts out loud (teach to learn)
+
+**Weekly Goals:**
+- Complete assigned chapters/sections
+- Build 1-2 practice projects per week
+- Review week's learning on weekends
+- Update progress tracker and journal
+
+**Monthly Milestones:**
+- Complete assigned book
+- Build 4-5 projects per book
+- Complete capstone project
+- Identify weak areas for extra focus
+
+**For Maximum Retention:**
+- Discuss with others (study groups, Discord, forums)
+- Teach what you learn (blog posts, videos, explanations)
+- Revisit difficult concepts
+- Apply to real-world projects
+- Join JavaScript communities
 
 ---
 
@@ -220,6 +261,24 @@ From the preface:
 
 ---
 
-Happy studying! Remember: The goal is not to finish, but to deeply understand.
+## What You'll Achieve in 6 Months
+
+**By completing this curriculum, you will:**
+- Master all 3 pillars of JavaScript (scope/closure, prototypes, types/coercion)
+- Understand `this`, closures, and modules deeply
+- Build 20+ practice projects and 5+ capstone projects
+- Write 2000+ lines of intentional JavaScript code
+- Develop the ability to teach these concepts to others
+- Have a portfolio of projects demonstrating deep JS knowledge
+
+---
+
+Happy studying! Remember: The goal is not to finish fast, but to deeply understand.
+
+**This is an intensive track** - if you need more time, take it. Quality of learning always trumps speed.
 
 *"You can always know JS better than you currently do."* - Kyle Simpson
+
+---
+
+**Your 6-month journey starts now. Stay consistent. Code daily. Ask why. Build things.**
