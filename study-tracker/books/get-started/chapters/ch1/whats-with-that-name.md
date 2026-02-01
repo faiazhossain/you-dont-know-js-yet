@@ -9,45 +9,58 @@
 ## Key Concepts
 
 ### The Name "JavaScript"
--
--
+
+- The name "JavaScript" is primarily a marketing artifact, not a technical description.
+- It was chosen to appeal to the large community of Java Programmers in the mid 1990s.
+
+- The script part reflected the trend of lightweight programs embedded in web pages.
 
 ### History of the Name
--
--
+
+- Brendan Eich originally named the language Mocha.
+- Internally at Netscape, it was called LiveScript.
+- "JavaScript" was selected for its public release as a strategic marketing name.
 
 ### Relation to Java
--
--
+
+- JavaScript is not related technically or int its design.
+- Superficial Syntax similarities are there which both comes from C language.
 
 ### Official Name: ECMAScript
--
--
+
+- The official, standardized name of the language is ECMAScript, governed by TC39 and ECMA International.
+
+- Since 2016, versions are named by year (e.g., ES2019, ES2020).
+
+- JavaScript (JS) is the implementation of the ECMAScript standard (e.g., in browsers or Node.js).
 
 ### Why the Name Confusion Matters
--
--
 
----
+-Misunderstanding the name leads to incorrect assumptions about the language's capabilities, purpose, and ecosystem.
+
+- Clarifying the distinction helps in learning it as its own language, not as a "lite" version of Java.
+
+- Using precise terminology (e.g., JS or ES20xx) avoids perpetuating confusion.
+- ***
 
 ## Code Examples
 
 ```javascript
 // Any examples illustrating naming or versioning
-
-
-
-
 ```
 
 ---
 
 ## My Notes
 
--
--
+-The name was a business decision, not a technical one. It's important to mentally separate "JavaScript" from "Java."
 
----
+- JS has evolved far beyond its original role as a simple "scripting" language for web pages. It's now used for full-stack development, mobile apps, servers, and more.
+
+- The trademark situation is interesting but largely irrelevant for developers today.
+
+- The progression from ES5 -> ES6 (ES2015) -> ES2016+ marks the shift to annual, incremental updates.
+- ***
 
 ## Questions I Have
 
@@ -59,21 +72,21 @@
 
 ## Confidence Level
 
-**After First Read**: _____/5
-**After Deep Dive**: _____/5
+**After First Read**: **2**/5
+**After Deep Dive**: **5**/5
 
 ---
 
 ## Status
 
-- [ ] First read complete
-- [ ] Deep dive complete
-- [ ] Practice exercises done
+- [✅] First read complete
+- [✅] Deep dive complete
+- [❌] Practice exercises done
 
 ---
 
 ## Notes from Re-reading
 
-**Re-read #1 (Date: _______)**
--
+## **Re-read #1 (Date: **\_\_\_**)**
+
 -
