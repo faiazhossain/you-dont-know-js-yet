@@ -49,21 +49,23 @@ Write your thoughts in the journal.
 1. OPEN: ydkjs-books/[book-name]/chX.md
    Find and read the section
 
-2. OPEN: study-tracker/books/[book-name]/chapters/chX/[section].md
+2. OPEN: study-tracker/books/[book-name]/chX/sections/[section].md
    Fill in the notes template
 
 3. OPEN: playground/[topic]/
    Write code experiments and practice
 
-4. OPEN: study-tracker/books/[book-name]/exercises/chX.md
+4. OPEN: study-tracker/books/[book-name]/chX/exercises.md
    Complete the exercises
 
-5. OPEN: study-tracker/progress/tracker.md
+5. OPEN: study-tracker/books/[book-name]/chX/tracker.md
    Mark section complete, rate confidence (1-5)
 
-6. OPEN: study-tracker/progress/journal.md
+6. OPEN: study-tracker/books/[book-name]/chX/journal.md
    Write key insights and questions
 ```
+
+**Everything for one chapter is now in ONE folder!**
 
 ---
 
@@ -158,7 +160,7 @@ STEP 1: READ
   Action: Read "About This Book" section
 
 STEP 2: UNDERSTAND
-  File: study-tracker/books/get-started/chapters/ch1/about-this-book.md
+  File: study-tracker/books/get-started/ch1/sections/about-this-book.md
   Action: Fill in the note template with key points
 
 STEP 3: PRACTICE
@@ -166,15 +168,15 @@ STEP 3: PRACTICE
   Action: Write code examples, experiment
 
 STEP 4: EXERCISE
-  File: study-tracker/books/get-started/exercises/ch1.md
+  File: study-tracker/books/get-started/ch1/exercises.md
   Action: Complete exercises for this section
 
 STEP 5: TRACK
-  File: study-tracker/progress/tracker.md
+  File: study-tracker/books/get-started/ch1/tracker.md
   Action: Check off "About This Book", rate confidence 1-5
 
 STEP 6: JOURNAL
-  File: study-tracker/progress/journal.md
+  File: study-tracker/books/get-started/ch1/journal.md
   Action: Write what you learned, what confused you
 
 REPEAT for next section → "What's With That Name?"
@@ -239,21 +241,18 @@ BOOKS TO READ:
   ydkjs-books/objects-classes/ch1.md
   ydkjs-books/types-grammar/ch1.md
 
-NOTE TEMPLATES:
-  study-tracker/books/get-started/chapters/ch1/[section].md
-  study-tracker/books/scope-closures/chapters/ch1/[section].md
-  study-tracker/books/objects-classes/chapters/ch1/[section].md
-  study-tracker/books/types-grammar/chapters/ch1/[section].md
+EACH CHAPTER FOLDER (Everything in one place!):
+  study-tracker/books/get-started/ch1/
+  ├── sections/          (Note templates for each section)
+  ├── exercises.md       (Chapter exercises)
+  ├── tracker.md         (Progress tracking)
+  └── journal.md         (Your journal)
 
-EXERCISES:
-  study-tracker/books/get-started/exercises/ch1.md
-  study-tracker/books/scope-closures/exercises/ch1.md
-  study-tracker/books/objects-classes/exercises/ch1.md
-  study-tracker/books/types-grammar/exercises/ch1.md
-
-PROGRESS:
-  study-tracker/progress/tracker.md
-  study-tracker/progress/journal.md
+  study-tracker/books/scope-closures/ch1/
+  ├── sections/
+  ├── exercises.md
+  ├── tracker.md
+  └── journal.md
 
 PRACTICE:
   playground/
@@ -330,23 +329,20 @@ At the end of each month:
 ## Quick Start Commands
 
 ```bash
-# Start studying
-cd study-tracker
+# Start studying Chapter 1 of Get Started
+cd study-tracker/books/get-started/ch1/
 
-# Open your current book
+# Everything you need is in this one folder:
+# - sections/     (note templates)
+# - exercises.md  (exercises)
+# - tracker.md    (progress tracking)
+# - journal.md    (your journal)
+
+# Open the book to read
 open ydkjs-books/get-started/ch1.md
 
-# Open your notes
-open study-tracker/books/get-started/chapters/ch1/
-
-# Open exercises
-open study-tracker/books/get-started/exercises/ch1.md
-
-# Update progress
-open study-tracker/progress/tracker.md
-
-# Write journal
-open study-tracker/progress/journal.md
+# Open your current chapter folder
+open study-tracker/books/get-started/ch1/
 
 # Practice coding
 cd playground/
