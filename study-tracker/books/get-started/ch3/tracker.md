@@ -8,10 +8,10 @@
 
 | Section | Status | Confidence | Notes |
 |---------|--------|------------|-------|
-| Iteration | [ ] | | |
-| Closure | [ ] | | |
-| this Keyword | [ ] | | |
-| Prototypes | [ ] | | |
+| 1. Iteration | [ ] | | |
+| 2. Closure | [ ] | | |
+| 3. this Keyword | [ ] | | |
+| 4. Prototypes | [ ] | | |
 | Asking Why? | [ ] | | |
 
 ---

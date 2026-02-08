@@ -9,7 +9,7 @@ Like way back in grade school math class, getting the right answer isn't enough 
 
 This chapter will illustrate *scope* with several metaphors. The goal here is to *think* about how your program is handled by the JS engine in ways that more closely align with how the JS engine actually works.
 
-## Marbles, and Buckets, and Bubbles... Oh My!
+## 1. Marbles, and Buckets, and Bubbles... Oh My!
 
 One metaphor I've found effective in understanding scope is sorting colored marbles into buckets of their matching color.
 
@@ -96,7 +96,7 @@ The key take-aways from marbles & buckets (and bubbles!):
 
 * The determination of colored buckets, and the marbles they contain, happens during compilation. This information is used for variable (marble color) "lookups" during code execution.
 
-## A Conversation Among Friends
+## 2. A Conversation Among Friends
 
 Another useful metaphor for the process of analyzing variables and the scopes they come from is to imagine various conversations that occur inside the engine as code is processed and then executed. We can "listen in" on these conversations to get a better conceptual foundation for how scopes work.
 
@@ -210,7 +210,7 @@ To review and summarize how a statement like `var students = [ .. ]` is processe
 
 2. While *Engine* is executing, to process the assignment part of the statement, *Engine* asks *Scope Manager* to look up the variable, initializes it to `undefined` so it's ready to use, and then assigns the array value to it.
 
-## Nested Scope
+## 3. Nested Scope
 
 When it comes time to execute the `getStudentName()` function, *Engine* asks for a *Scope Manager* instance for that function's scope, and it will then proceed to look up the parameter (`studentID`) to assign the `73` argument value to, and so on.
 
@@ -236,7 +236,7 @@ To explain, let's imagine that bit of conversation playing out like this:
 
 One of the key aspects of lexical scope is that any time an identifier reference cannot be found in the current scope, the next outer scope in the nesting is consulted; that process is repeated until an answer is found or there are no more scopes to consult.
 
-### Lookup Failures
+### 3.1 Lookup Failures
 
 When *Engine* exhausts all *lexically available* scopes (moving outward) and still cannot resolve the lookup of an identifier, an error condition then exists. However, depending on the mode of the program (strict-mode or not) and the role of the variable (i.e., *target* vs. *source*; see Chapter 1), this error condition will be handled differently.
 
@@ -297,7 +297,7 @@ Assigning to a never-declared variable *is* an error, so it's right that we woul
 
 Never rely on accidental global variables. Always use strict-mode, and always formally declare your variables. You'll then get a helpful `ReferenceError` if you ever mistakenly try to assign to a not-declared variable.
 
-### Building On Metaphors
+### 3.2 Building On Metaphors
 
 To visualize nested scope resolution, I prefer yet another metaphor, an office building, as in Figure 3:
 
@@ -311,7 +311,7 @@ The building represents our program's nested scope collection. The first floor o
 
 You resolve a *target* or *source* variable reference by first looking on the current floor, and if you don't find it, taking the elevator to the next floor (i.e., an outer scope), looking there, then the next, and so on. Once you get to the top floor (the global scope), you either find what you're looking for, or you don't. But you have to stop regardless.
 
-## Continue the Conversation
+## 4. Continue the Conversation
 
 By this point, you should be developing richer mental models for what scope is and how the JS engine determines and uses it from your code.
 

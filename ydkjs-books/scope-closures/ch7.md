@@ -15,7 +15,7 @@ Closure is one of the most important language characteristics ever invented in p
 
 Addressing all aspects of closure requires a daunting mountain of discussion and code throughout this chapter. Make sure to take your time and ensure you're comfortable with each bit before moving onto the next.
 
-## See the Closure
+## 1. See the Closure
 
 Closure is originally a mathematical concept, from lambda calculus. But I'm not going to list out math formulas or use a bunch of notation and jargon to define it.
 
@@ -85,7 +85,7 @@ If `greetStudent(..)` tried to access what it thought was a BLUE(2) marble, but 
 
 But we don't get an error. The fact that the execution of `chosenStudents[0]("Hello")` works and returns us the message "Hello, Sarah!", means it was still able to access the `students` and `studentID` variables. This is a direct observation of closure!
 
-### Pointed Closure
+### 1.1 Pointed Closure
 
 Actually, we glossed over a little detail in the previous discussion which I'm guessing many readers missed!
 
@@ -105,7 +105,7 @@ The BLUE(2) `studentID` reference is actually inside the ORANGE(4) scope rather 
 
 The consequence here is that this arrow function passed as a callback to the array's `find(..)` method has to hold the closure over `studentID`, rather than `greetStudent(..)` holding that closure. That's not too big of a deal, as everything still works as expected. It's just important not to skip over the fact that even tiny arrow functions can get in on the closure party.
 
-### Adding Up Closures
+### 1.2 Adding Up Closures
 
 Let's examine one of the canonical examples often cited for closure:
 
@@ -131,7 +131,7 @@ But actually, every time the outer `adder(..)` function runs, a *new* inner `add
 
 Even though closure is based on lexical scope, which is handled at compile time, closure is observed as a runtime characteristic of function instances.
 
-### Live Link, Not a Snapshot
+### 1.3 Live Link, Not a Snapshot
 
 In both examples from the previous sections, we **read the value from a variable** that was held in a closure. That makes it feel like closure might be a snapshot of a value at some given moment. Indeed, that's a common misconception.
 
@@ -293,7 +293,7 @@ keeps[2]();   // 2
 
 Since we're using `let`, three `i`'s are created, one for each loop, so each of the three closures *just work* as expected.
 
-### Common Closures: Ajax and Events
+### 1.4 Common Closures: Ajax and Events
 
 Closure is most commonly encountered with callbacks:
 
@@ -335,7 +335,7 @@ listenForClicks(submitBtn,"Checkout");
 
 The `label` parameter is closed over by the `onClick(..)` event handler callback. When the button is clicked, `label` still exists to be used. This is closure.
 
-### What If I Can't See It?
+### 1.5 What If I Can't See It?
 
 You've probably heard this common adage:
 
@@ -437,7 +437,7 @@ This one's tricky, because the outer function definitely does get invoked. But t
 
 A tree may have fallen... but we didn't hear it, so we don't care.
 
-### Observable Definition
+### 1.6 Observable Definition
 
 We're now ready to define closure:
 
@@ -453,7 +453,7 @@ The key parts of this definition are:
 
 This observation-oriented definition means we shouldn't dismiss closure as some indirect, academic trivia. Instead, we should look and plan for the direct, concrete effects closure has on our program behavior.
 
-## The Closure Lifecycle and Garbage Collection (GC)
+## 2. The Closure Lifecycle and Garbage Collection (GC)
 
 Since closure is inherently tied to a function instance, its closure over a variable lasts as long as there is still a reference to that function.
 
@@ -516,7 +516,7 @@ When we call `onSubmit()` with no input on the last line, all event handlers are
 
 When considering the overall health and efficiency of the program, unsubscribing an event handler when it's no longer needed can be even more important than the initial subscription!
 
-### Per Variable or Per Scope?
+### 2.1 Per Variable or Per Scope?
 
 Another question we need to tackle: should we think of closure as applied only to the referenced outer variable(s), or does closure preserve the entire scope chain with all its variables?
 
@@ -646,7 +646,7 @@ As a matter of fact, we also technically don't need the function `getGrade()` an
 
 The takeaway: it's important to know where closures appear in our programs, and what variables are included. We should manage these closures carefully so we're only holding onto what's minimally needed and not wasting memory.
 
-## An Alternative Perspective
+## 3. An Alternative Perspective
 
 Reviewing our working definition for closure, the assertion is that functions are "first-class values" that can be passed around the program, just like any other value. Closure is the link-association that connects that function to the scope/variables outside of itself, no matter where that function goes.
 
@@ -712,7 +712,7 @@ Both perspectives/models are useful in understanding closure, but the reader may
 | :--- |
 | This alternative model for closure does affect whether we classify synchronous callbacks as examples of closure or not. More on this nuance in Appendix A. |
 
-## Why Closure?
+## 4. Why Closure?
 
 Now that we have a well-rounded sense of what closure is and how it works, let's explore some ways it can improve the code structure and organization of an example program.
 
@@ -836,7 +836,7 @@ The `requestURL` and `requestData` inputs are provided ahead of time, resulting 
 
 Behavior-wise, this program is pretty similar to the previous one, with the same type of closure. But by isolating the creation of `makeRequest(..)` in a separate utility (`defineHandler(..)`), we make that definition more reusable across the program. We also explicitly limit the closure scope to only the two variables needed.
 
-## Closer to Closure
+## 5. Closer to Closure
 
 As we close down a dense chapter, take some deep breaths let it all sink in. Seriously, that's a lot of information for anyone to consume!
 

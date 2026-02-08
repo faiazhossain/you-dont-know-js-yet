@@ -17,7 +17,7 @@ To refresh the context of our running example, let's recall the color-coded illu
 
 The connections between scopes that are nested within other scopes is called the scope chain, which determines the path along which variables can be accessed. The chain is directed, meaning the lookup moves upward/outward only.
 
-## "Lookup" Is (Mostly) Conceptual
+## 1. "Lookup" Is (Mostly) Conceptual
 
 In Figure 2, notice the color of the `students` variable reference in the `for`-loop. How exactly did we determine that it's a RED(1) marble?
 
@@ -47,7 +47,7 @@ However, this lookup would only be needed once per variable at most, since nothi
 
 The "Lookup Failures" section in Chapter 2 covers what happens if a marble is ultimately still uncolored at the moment its reference is runtime executed.
 
-## Shadowing
+## 2. Shadowing
 
 "Shadowing" might sound mysterious and a little bit sketchy. But don't worry, it's completely legit!
 
@@ -93,7 +93,7 @@ That's why the re-assignment of `studentName` affects only the inner (parameter)
 
 When you choose to shadow a variable from an outer scope, one direct impact is that from that scope inward/downward (through any nested scopes) it's now impossible for any marble to be colored as the shadowed variable—(RED(1), in this case). In other words, any `studentName` identifier reference will correspond to that parameter variable, never the global `studentName` variable. It's lexically impossible to reference the global `studentName` anywhere inside of the `printStudent(..)` function (or from any nested scopes).
 
-### Global Unshadowing Trick
+### 2.1 Global Unshadowing Trick
 
 Please beware: leveraging the technique I'm about to describe is not very good practice, as it's limited in utility, confusing for readers of your code, and likely to invite bugs to your program. I'm covering it only because you may run across this behavior in existing programs, and understanding what's happening is critical to not getting tripped up.
 
@@ -166,7 +166,7 @@ lookingFor(112358132134);
 
 The global RED(1) `special` is shadowed by the BLUE(2) `special` (parameter), and the BLUE(2) `special` is itself shadowed by the GREEN(3) `special` inside `keepLooking()`. We can still access the RED(1) `special` using the indirect reference `window.special`. But there's no way for `keepLooking()` to access the BLUE(2) `special` that holds the number `112358132134`.
 
-### Copying Is Not Accessing
+### 2.2 Copying Is Not Accessing
 
 I've been asked the following "But what about...?" question dozens of times. Consider:
 
@@ -202,7 +202,7 @@ Another "But...!?" you may be about to raise: what if I'd used objects or arrays
 
 No. Mutating the contents of the object value via a reference copy is **not** the same thing as lexically accessing the variable itself. We still can't reassign the BLUE(2) `special` parameter.
 
-### Illegal Shadowing
+### 2.3 Illegal Shadowing
 
 Not all combinations of declaration shadowing are allowed. `let` can shadow `var`, but `var` cannot shadow `let`:
 
@@ -260,7 +260,7 @@ function another() {
 
 Summary: `let` (in an inner scope) can always shadow an outer scope's `var`. `var` (in an inner scope) can only shadow an outer scope's `let` if there is a function boundary in between.
 
-## Function Name Scope
+## 3. Function Name Scope
 
 As you've seen by now, a `function` declaration looks like this:
 
@@ -338,7 +338,7 @@ A `function` expression with a name identifier is referred to as a "named functi
 | :--- |
 | We'll discuss named vs. anonymous `function` expressions in much more detail, including what factors affect the decision to use one or the other, in Appendix A. |
 
-## Arrow Functions
+## 4. Arrow Functions
 
 ES6 added an additional `function` expression form to the language, called "arrow functions":
 
@@ -384,7 +384,7 @@ This is incorrect.
 
 Other than being anonymous (and having no declarative form), `=>` arrow functions have the same lexical scope rules as `function` functions do. An arrow function, with or without `{ .. }` around its body, still creates a separate, inner nested bucket of scope. Variable declarations inside this nested scope bucket behave the same as in a `function` scope.
 
-## Backing Out
+## 5. Backing Out
 
 When a function (declaration or expression) is defined, a new scope is created. The positioning of scopes nested inside one another creates a natural scope hierarchy throughout the program, called the scope chain. The scope chain controls variable access, directionally oriented upward and outward.
 

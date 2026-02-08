@@ -17,7 +17,7 @@ Even though `class` now bears almost no resemblance to older "prototypal class" 
 
 That said, since `class` style code has now replaced virtually all previous "prototypal class" coding, the main text here focuses only on `class` and its various particulars. For historical purposes, we'll briefly cover the old "prototypal class" style in an appendix.
 
-## When Should I Class-Orient My Code?
+## 1. When Should I Class-Orient My Code?
 
 Class-orientation is a design pattern, which means it's a choice for how you organize the information and behavior in your program. It has pros and cons. It's not a universal solution for all tasks.
 
@@ -35,7 +35,7 @@ So class-orientation is a way of thinking about the entities our program needs, 
 
 But moving from the theoretical into in a bit more pragmatic perspective: if your program needs to hold and use multiple collections (instances) of alike data/behavior at once, you *may* benefit from class-orientation.
 
-### Time For An Example
+### 1.1 Time For An Example
 
 Here's a short illustration.
 
@@ -53,7 +53,7 @@ How did my class design take advantage of inheritance? I had a base class that d
 
 There's yet another aspect of the design pattern at play, which is *composition*: each entity was defined as a collection of other entities.
 
-### Single vs Multiple
+### 1.2 Single vs Multiple
 
 I mentioned above that a pragmatic way of deciding if you need class-orientation is if your program is going to have multiple instances of a single kind/type of behavior (aka, "class"). In the timesheet example, we had 4 classes: Timesheet, Week, Day, and Task. But for each class, we had multiple instances of each at once.
 
@@ -63,7 +63,7 @@ So, if you find yourself designing a program by dividing up a business problem d
 
 But if you find yourself wanting to define classes, and subclasses which inherit from them, and if you're going to be instantiating one or more of those classes multiple times, then class-orientation is a good candidate. And to do class-orientation in JS, you're going to need the `class` keyword.
 
-## Keep It `class`y
+## 2. Keep It `class`y
 
 `class` defines either a declaration or expression for a class. As a declaration, a class definition appears in a statement position and looks like this:
 
@@ -106,7 +106,7 @@ Inside a `class` body, methods are defined without the `function` keyword, and t
 | :--- |
 | Inside a `class` block, all code runs in strict-mode even without the `"use strict"` pragma present in the file or its functions. In particular, this impacts the `this` behavior for function calls, as explained in Chapter 4. |
 
-### The Constructor
+### 2.1 The Constructor
 
 One special method that all classes have is called a "constructor". If omitted, there's a default empty constructor assumed in the definition.
 
@@ -173,7 +173,7 @@ two.value;      // undefined
 three.value;    // undefined
 ```
 
-### Class Methods
+### 2.2 Class Methods
 
 As shown above, a class definition can include one or more method definitions:
 
@@ -200,7 +200,7 @@ So, `setX(..)` only exists as `Point2d.prototype.setX`. Since `point` is `[[Prot
 
 Class methods should only be invoked via an instance; `Point2d.setX(..)` doesn't work because there *is no* such property. You *could* invoke `Point2d.prototype.setX(..)`, but that's not generally proper/advised in standard class-oriented coding. Always access class methods via the instances.
 
-## Class Instance `this`
+## 3. Class Instance `this`
 
 We will cover the `this` keyword in much more detail in a subsequent chapter. But as it relates to class-oriented code, the `this` keyword generally refers to the current instance that is the context of any method invocation.
 
@@ -231,7 +231,7 @@ Any properties not holding function values, which are added to a class instance 
 
 While the `point.toString()` method is running, its `this` reference is pointing at the same object that `point` references. That's why both `point.x` and `this.x` reveal the same `3` value that the constructor set with its `this.x = x` operation.
 
-### Public Fields
+### 3.1 Public Fields
 
 Instead of defining a class instance member imperatively via `this.` in the constructor or a method, classes can declaratively define *fields* in the `class` body, which correspond directly to members that will be created on each instance:
 
@@ -370,7 +370,7 @@ I *am* saying: never attach an `=>` arrow function as an instance property in pl
 
 In a subsequent chapter, we'll dive deep into how to understand and properly leverage the full power of the dynamic `this` mechanism.
 
-## Class Extension
+## 4. Class Extension
 
 The way to unlock the power of class inheritance is through the `extends` keyword, which defines a relationship between two classes:
 
@@ -414,11 +414,11 @@ It also adds a new `z` field/member method, as well as a `printDoubleX()` method
 
 When `anotherPoint.printDoubleX()` is invoked, the inherited `this.getX()` is thus invoked, and that method makes reference to `this.x`. Since `this` is pointing at the class instance (aka, `anotherPoint`), the value it finds is now `21` (instead of `3` from the `point` object's `x` member).
 
-### Extending Expressions
+### 4.1 Extending Expressions
 
 // TODO: cover `class Foo extends ..` where `..` is an expression, not a class-name
 
-### Overriding Methods
+### 4.2 Overriding Methods
 
 In addition to overriding a field/member in a subclass, you can also override (redefine) a method:
 
@@ -484,7 +484,7 @@ point.printX();       // x: 21
 
 The ability for methods of the same name, at different levels of the inheritance hierarchy, to exhibit different behavior when either accessed directly, or relatively with `super`, is called *method polymorphism*. It's a very powerful part of class-orientation, when used appropriately.
 
-### That's Super!
+### 4.3 That's Super!
 
 In addition to a subclass method accessing an inherited method definition (even if overriden on the subclass) via `super.` reference, a subclass constructor must manually invoke the inherited base class constructor via `super(..)` function invocation:
 
@@ -595,7 +595,7 @@ var anotherPoint = new Point3d(3,4,5);
 // Constructing 'Point3d' instance
 ```
 
-### But Which Kind Of Instance?
+### 4.4 But Which Kind Of Instance?
 
 You may want to introspect a certain object instance to see if it's an instance of a specific class. We do this with the `instanceof` operator:
 
@@ -656,7 +656,7 @@ anotherPoint.constructor === Point3d;   // true
 | :--- |
 | The `constructor` property shown here is *not* actually present on (owned) the `point` or `anotherPoint` instance objects. So where does it come from!? It's on each object's `[[Prototype]]` linked prototype object: `Point2d.prototype.constructor === Point2d` and `Point3d.prototype.constructor === Point3d`. |
 
-### "Inheritance" Is Sharing, Not Copying
+### 4.5 "Inheritance" Is Sharing, Not Copying
 
 It may seem as if `Point3d`, when it `extends` the `Point2d` class, is in essence getting a *copy* of all the behavior defined in `Point2d`. Moreover, it may seem as if the concrete object instance `anotherPoint` receives, *copied down* to it, all the methods from `Point3d` (and by extension, also from `Point2d`).
 
@@ -706,7 +706,7 @@ And `anotherPoint` has access to that method via its `[[Prototype]]` linkage (se
 
 As nice as the `class` syntax is, don't forget what's really happening under the syntax: JS is *just* wiring up objects to each other along a `[[Prototype]]` chain.
 
-## Static Class Behavior
+## 5. Static Class Behavior
 
 We've so far emphasized two different locations for data or behavior (methods) to reside: on the constructor's prototype, or on the instance. But there's a third option: on the constructor (function object) itself.
 
@@ -766,7 +766,7 @@ Of course, we could have put these two somewhere other than as `static`s on the 
 | :--- |
 | Don't forget that when you use the `class` syntax, the name `Point2d` is actually the name of a constructor function that JS defines. So `Point2d.origin` is just a regular property access on that function object. That's what I meant at the top of this section when I referred to a third location for storing *things* related to classes; in JS, `static`s are stored as properties on the constructor function. Take care not to confuse those with properties stored on the constructor's `prototype` (methods) and properties stored on the instance (members). |
 
-### Static Property Initializations
+### 5.1 Static Property Initializations
 
 The value in a static initialization (`static whatever = ..`) can include `this` references, which refers to the class itself (actually, the constructor) rather than to an instance:
 
@@ -821,7 +821,7 @@ The `let outerPoint = ..` here is not a special `class` feature; it's exactly li
 
 Static initialization blocks are also useful for things like `try..catch` statements around expression computations.
 
-### Static Inheritance
+### 5.2 Static Inheritance
 
 Class statics are inherited by subclasses (obviously, as statics!), can be overriden, and `super` can be used for base class references (and static function polymorphism), all in much the same way as inheritance works with instance members/methods:
 
@@ -882,7 +882,7 @@ Don't skip over the underlying JS behavior here. Just like method inheritance di
 
 It's also interesting, perhaps only historically now, to note that static inheritance -- which was part of the original ES6 `class` mechanism feature set! -- was one specific feature that went beyond "just syntax sugar". Static inheritance, as we see it illustrated here, was *not* possible to achieve/emulate in JS prior to ES6, in the old prototypal-class style of code. It's a special new behavior introduced only as of ES6.
 
-## Private Class Behavior
+## 6. Private Class Behavior
 
 Everything we've discussed so far as part of a `class` definition is publicly visible/accessible, either as static properties/functions on the class, methods on the constructor's `prototype`, or member properties on the instance.
 
@@ -890,7 +890,7 @@ But how do you store information that cannot be seen from outside the class? Thi
 
 `class` now supports new syntax for declaring private fields (instance members) and private methods. In addition, private static properties/functions are possible.
 
-### Motivation?
+### 6.1 Motivation?
 
 Before we illustrate how to do `class` privates, it bears contemplating why this is a helpful feature?
 
@@ -928,7 +928,7 @@ So we return to the question: **Why should you care to make any `class` contents
 
 If I'm being honest: maybe you shouldn't. Or maybe you should. That's up to you. Just go into it aware of the stumbling blocks.
 
-### Private Members/Methods
+### 6.2 Private Members/Methods
 
 You're excited to finally see the syntax for magical *private* visibility, right? Please don't shoot the messenger if you feel angered or sad at what you're about to see.
 
@@ -1117,7 +1117,7 @@ func.call({},100);
 
 The main concern here is to be careful when passing private methods as callbacks (or in any way exposing privates to other parts of the program). There's nothing stopping you from doing so, which can create a bit of an unintended privacy disclosure.
 
-### Private Statics
+### 6.3 Private Statics
 
 Static properties and functions can also use `#` to be marked as private:
 
@@ -1235,7 +1235,7 @@ Point3d.printError();
 
 If public static functions are being inherited, use the class name to access any private statics instead of using `this.` references. Beware that gotcha!
 
-## Class Example
+## 7. Class Example
 
 OK, we've laid out a bunch of disparate class features. I want to wrap up this chapter by trying to illustrate a sampling of these capabilities in a single example that's a little less basic/contrived.
 

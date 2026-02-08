@@ -9,7 +9,7 @@ Remember to take your time, though. Rather than rushing onto the next book in an
 
 When you're ready, this final chapter divides the organization of the JS language into three main pillars, then offers a brief roadmap of what to expect from the rest of the book series, and how I suggest you proceed. Also, don't skip the appendices, especially Appendix B, "Practice, Practice, Practice!".
 
-## Pillar 1: Scope and Closure
+## 1. Pillar 1: Scope and Closure
 
 The organization of variables into units of scope (functions, blocks) is one of the most foundational characteristics of any language; perhaps no other characteristic has a greater impact on how programs behave.
 
@@ -31,7 +31,7 @@ Across all of programming, but especially in JS, closure drives many of the most
 
 To dig further into scope, closures, and how modules work, read Book 2, *Scope & Closures*.
 
-## Pillar 2: Prototypes
+## 2. Pillar 2: Prototypes
 
 The second pillar of the language is the prototypes system. We covered this topic in-depth in Chapter 3 ("Prototypes"), but I just want to make a few more comments about its importance.
 
@@ -49,7 +49,7 @@ I encourage you to spend plenty of time deep in Book 3, *Objects & Classes*, to 
 
 Object delegation is, I would argue, far more *with the grain* of JS, than classes (more on *grains* in a bit).
 
-## Pillar 3: Types and Coercion
+## 3. Pillar 3: Types and Coercion
 
 The third pillar of JS is by far the most overlooked part of JS's nature.
 
@@ -67,7 +67,7 @@ To learn more about JS types and coercion, check out Book 4, *Types & Grammar*. 
 
 Without learning this pillar, your foundation in JS is shaky and incomplete at best.
 
-## With the Grain
+## 4. With the Grain
 
 I have some advice to share on continuing your learning journey with JS, and your path through the rest of this book series: be aware of the *grain* (recall various references to *grain* earlier in this chapter).
 
@@ -97,7 +97,7 @@ You'll have to shift these things little by little, over time. Work on building 
 
 That's the most important advice I can impart to help you learn JS. Always keep looking for better ways to use what JS gives us to author more readable code. Everyone who works on your code, including your future self, will thank you!
 
-## In Order
+## 5. In Order
 
 So now you've got a broader perspective on what's left to explore in JS, and the right attitude to approach the rest of your journey.
 

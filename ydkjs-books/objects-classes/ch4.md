@@ -19,7 +19,7 @@ So the typical question we might ask when reading code -- "What does `this` poin
 
 If your brain is already twisting around just reading this chapter intro... good! Settle in for a rewiring of how you think about `this` in JS.
 
-## This Aware
+## 1. This Aware
 
 I used the phrase `this`-aware just a moment ago. But what exactly do I mean by that?
 
@@ -41,7 +41,7 @@ And why does all this matter?
 
 Because it's not just you, the author of the code, that needs to figure this stuff out. It's *every single reader* of your code, forever. If anyone (even your future self) wants to read a piece of code that defines a `this`-aware function, that inevitably means that, to fully understand and predict its behavior, that person will have to find, read, and understand every single invocation of that function.
 
-### This Confuses Me
+### 1.1 This Confuses Me
 
 Now, in fairness, that's already partially true if we consider a function's parameters. To understand how a function is going to work, we need to know what is being passed into it. So any function with at least one parameter is, in a similar sense, *argument*-aware -- meaning, what argument(s) is/are passed in and assigned to the parameter(s) of the function.
 
@@ -53,7 +53,7 @@ Actually, `this` is very much like a parameter to a function, but it's an implic
 
 The "parameter" name is always `this`, so we don't get much of a hint as to its nature/purpose from such a general name. In fact, there's historically a lot of confusion of what "this" even is supposed to mean. And we rarely see much if anything done to validate/convert/etc the `this` value applied to a function invocation. In fact, virtually all `this`-aware code I've seen just neatly assumes the `this` "parameter" is holding exactly what value is expected. Talk about **a trap for unexpected bugs!**
 
-### So What Is This?
+### 1.2 So What Is This?
 
 If `this` is an implicit parameter, what's its purpose? What's being passed in?
 
@@ -67,13 +67,13 @@ To be clear: JS scope is always and only lexical and *static* (if we ignore non-
 
 The `this` mechanism is, effectively, *dynamic* context (not scope); it's how a `this`-aware function can be dynamically invoked against different contexts -- something that's impossible with closure and lexical scope identifiers!
 
-### Why Is This So Implicit?
+### 1.3 Why Is This So Implicit?
 
 You might wonder why something as important as a *dynamic* context is handled as an implicit input to a function, rather than being an explicit argument passed in.
 
 That's a very important question, but it's not one we can quite answer, yet. Hold onto that question though.
 
-### Can We Get On With This?
+### 1.4 Can We Get On With This?
 
 So why have I belabored *this* subject for a couple of pages now? You get it, right!? You're ready to move on.
 
@@ -85,7 +85,7 @@ Let me put it *this* way: don't use `this`-aware code unless you really can just
 
 The `this` mechanism in JS, paired with `[[Prototype]]` delegation, is an extremely powerful pillar of the language. But as the cliche goes: "with great power comes great responsibility". Anecdotally, even though I really like and appreciate *this* pillar of JS, probably less than 5% of the JS code I ever write uses it. And when I do, it's with restraint. It's not my default, go-to JS capability.
 
-## This Is It!
+## 2. This Is It!
 
 OK, enough of the wordy lecture. You're ready to dive into `this` code, right?
 
@@ -120,7 +120,7 @@ Keep reminding yourself as you go through the rest of this chapter: the `this` v
 
 We only need to look at *how* the functions are called; that's the only factor that matters.
 
-### Implicit Context Invocation
+### 2.1 Implicit Context Invocation
 
 Consider this call:
 
@@ -132,7 +132,7 @@ We're invoking the `init(..)` function, but notice the `point.` in front of it? 
 
 That is the *normal* way we'd expect a `this` to work, and that's also one of the most common ways we invoke functions. So the typical invocation gives us the intuitive outcome. That's a good thing!
 
-### Default Context Invocation
+### 2.2 Default Context Invocation
 
 But what happens if we do this?
 
@@ -198,7 +198,7 @@ That's unfortunate, because it's almost certainly *not* the intended outcome. No
 | :--- |
 | Ouch! Nobody wants accidental global variables implicitly created from all over the code. The lesson: always make sure your code is running in strict-mode! |
 
-### Explicit Context Invocation
+### 2.3 Explicit Context Invocation
 
 Functions can alternately be invoked with *explicit context*, using the built-in `call(..)` or `apply(..)` utilities:
 
@@ -283,7 +283,7 @@ It may seem this approach is a little cleaner, comparing `anotherPoint.init(5,6)
 
 But the main downside is having to modify any target object with such shared function references, which can be verbose, manual, and error-prone. Sometimes such an approach is acceptable, but many other times, *explicit context* assignment with `call(..)` / `apply(..)` is more preferable.
 
-### New Context Invocation
+### 2.4 New Context Invocation
 
 We've so far seen three different ways of context assignment at the function call-site: *default*, *implicit*, and *explicit*.
 
@@ -385,7 +385,7 @@ point.toString.call( yetAnotherPoint );
 // (5,6)
 ```
 
-### Review This
+### 2.5 Review This
 
 We've seen four rules for `this` context assignment in function calls. Let's put them in order of precedence:
 
@@ -401,7 +401,7 @@ These rules, *in this order*, are how JS determines the `this` for a function in
 
 That's it, you're now master over the `this` keyword. Well, not quite. There's a bunch more nuance to cover. But you're well on your way!
 
-## An Arrow Points Somewhere
+## 3. An Arrow Points Somewhere
 
 Everything I've asserted so far about `this` in functions, and how its determined based on the call-site, makes one giant assumption: that you're dealing with a *regular* function (or method).
 
@@ -459,7 +459,7 @@ What I really want to focus on is how each of these forms of the function will b
 
 For each of those function forms just shown, how do we know what each `this` will reference?
 
-### Where's The Call-site?
+### 3.1 Where's The Call-site?
 
 Hopefully, you responded with something like: "first, we need to see how the functions are called."
 
@@ -522,7 +522,7 @@ And neither of those two previous code snippets show the `clickHandler` function
 
 So how is `clickHandler` being invoked? What's the call-site, and which context assignment rule does it match?
 
-### Hidden From Sight
+### 3.2 Hidden From Sight
 
 If you're stuck, don't worry. I'm deliberately making this difficult, to point something very important out.
 
@@ -563,7 +563,7 @@ Now which `this` rule would apply? The *explicit context* rule (#2)?
 
 Unless you open and view the source code for the framework/library, or read the documentation/specification, you won't *know* what to expect of that call-site. Which means that predicting, ultimately, what `this` points to in the `clickHandler` function you write, is... to put it mildly... a bit convoluted.
 
-### *This* Is Wrong
+### 3.3 *This* Is Wrong
 
 To spare you any more pain here, I'll cut to the chase.
 
@@ -577,7 +577,7 @@ In other words, the `this` reference that our event handler will have set for it
 
 Unless we want to rewrite the `clickHandler` function, we're going to need to fix that.
 
-### Fixing `this`
+### 3.4 Fixing `this`
 
 Let's consider some options to address the mis-assignment. To keep things focused, I'll stick to this style of event binding for the discussion:
 
@@ -629,7 +629,7 @@ I pulled off that trick not only by defining a surrounding function (`handler(..
 
 The `var context = this` line is critical to the trick. It defines a lexical variable `context`, which is not some special keyword, holding a snapshot of the value in the outer `this`. Then inside `clickHandler`, we merely reference a lexical variable (`context`), no relative/magic `this` keyword.
 
-### Lexical This
+### 3.5 Lexical This
 
 The name for this pattern, by the way, is "lexical this", meaning a `this` that behaves like a lexical scope variable instead of like a dynamic context binding.
 
@@ -825,7 +825,7 @@ Remember the addage I quoted earlier: "with great power comes great responsibili
 
 That's the only way to effectively write (and later read!) `this`-aware code.
 
-### This Is Bound To Come Up
+### 3.6 This Is Bound To Come Up
 
 Backing up a bit, there's another option if you don't want to use an `=>` arrow function's "lexical this" behavior to address the button event handler functionality.
 
@@ -920,7 +920,7 @@ But why? My best answer, not being authoritative on TC39 myself, is that concept
 
 But the main point is: an `=>` arrow function is *not* a syntactic form of `bind(this)`.
 
-### Losing This Battle
+### 3.7 Losing This Battle
 
 Returning once again to our button event handler example:
 
@@ -1102,11 +1102,11 @@ I'm talking to myself, not you. But if what I just said bothers you, I'm talking
 
 OK, listen. That's just my opinion. If you don't agree, that's fine. But apply the same level of rigor to thinking about how these mechanisms work, as I have, when you decide what conclusions you want to arrive at.
 
-## Variations
+## 4. Variations
 
 Before we close out our lengthy discussion of `this`, there's a few irregular variations on function calls that we should discuss.
 
-### Indirect Function Calls
+### 4.1 Indirect Function Calls
 
 Recall this example from earlier in the chapter?
 
@@ -1169,7 +1169,7 @@ Not quite, though! JS grammar has a special rule to handle the invocation form `
 
 Wondering why you might want to ever force the *default context* for `this` assignment via an indirect function invocation?
 
-### Accessing `globalThis`
+### 4.2 Accessing `globalThis`
 
 Before we answer that, let's introduce another way of performing indirect function `this` assignment. Thus far, the indirect function invocation patterns shown are sensitive to strict-mode. But what if we wanted an indirect function `this` assignment that doesn't respect strict-mode.
 
@@ -1223,7 +1223,7 @@ getGlobalThis() === globalThis;      // true
 
 Yeah, that's super gnarly. But that's JS `this` for you!
 
-### Template Tag Functions
+### 4.3 Template Tag Functions
 
 There's one more unusual variation of function invocation we should cover: tagged template functions.
 
@@ -1259,7 +1259,7 @@ Luckily for us, we don't need to worry about the `new` or `call(..)` / `apply(..
 
 It should be pointed out that it's pretty rare for a tagged template literal function to be defined as `this`-aware, so it's fairly unlikely you'll need to apply these rules. But just in case, now you're in the *know*.
 
-## Stay Aware
+## 5. Stay Aware
 
 So, that's `this`. I'm willing to bet for many of you, it was a bit more... shall we say, involved... than you might have been expecting.
 

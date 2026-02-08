@@ -11,7 +11,7 @@ The central theme of this book has been that understanding and mastering scope a
 
 Our goal in this final chapter is to appreciate how modules embody the importance of these topics, elevating them from abstract concepts to concrete, practical improvements in building programs.
 
-## Encapsulation and Least Exposure (POLE)
+## 1. Encapsulation and Least Exposure (POLE)
 
 Encapsulation is often cited as a principle of object-oriented (OO) programming, but it's more fundamental and broadly applicable than that. The goal of encapsulation is the bundling or co-location of information (data) and behavior (functions) that together serve a common purpose.
 
@@ -27,7 +27,7 @@ The natural effect of this effort is better code organization. It's easier to bu
 
 These are some of the main benefits of organizing JS programs into modules.
 
-## What Is a Module?
+## 2. What Is a Module?
 
 A module is a collection of related data and functions (often referred to as methods in this context), characterized by a division between hidden *private* details and *public* accessible details, usually called the "public API."
 
@@ -39,7 +39,7 @@ A module is also stateful: it maintains some information over time, along with f
 
 To get a better sense of what a module is, let's compare some module characteristics to useful code patterns that aren't quite modules.
 
-### Namespaces (Stateless Grouping)
+### 2.1 Namespaces (Stateless Grouping)
 
 If you group a set of related functions together, without data, then you don't really have the expected encapsulation a module implies. The better term for this grouping of *stateless* functions is a namespace:
 
@@ -64,7 +64,7 @@ var Utils = {
 
 `Utils` here is a useful collection of utilities, yet they're all state-independent functions. Gathering functionality together is generally good practice, but that doesn't make this a module. Rather, we've defined a `Utils` namespace and organized the functions under it.
 
-### Data Structures (Stateful Grouping)
+### 2.2 Data Structures (Stateful Grouping)
 
 Even if you bundle data and stateful functions together, if you're not limiting the visibility of any of it, then you're stopping short of the POLE aspect of encapsulation; it's not particularly helpful to label that a module.
 
@@ -95,7 +95,7 @@ Since `records` is publicly accessible data, not hidden behind a public API, `St
 
 `Student` does have the data-and-functionality aspect of encapsulation, but not the visibility-control aspect. It's best to label this an instance of a data structure.
 
-### Modules (Stateful Access Control)
+### 2.3 Modules (Stateful Access Control)
 
 To embody the full spirit of the module pattern, we not only need grouping and state, but also access control through visibility (private vs. public).
 
@@ -199,7 +199,7 @@ So to clarify what makes something a classic module:
 
 You'll likely run across other variations on this classic module approach, which we'll look at in more detail in Appendix A.
 
-## Node CommonJS Modules
+## 3. Node CommonJS Modules
 
 In Chapter 4, we introduced the CommonJS module format used by Node. Unlike the classic module format described earlier, where you could bundle the module factory or IIFE alongside any other code including other modules, CommonJS modules are file-based; one module per file.
 
@@ -279,7 +279,7 @@ Similar to the classic module format, the publicly exported methods of a CommonJ
 | :--- |
 | In Node `require("student")` statements, non-absolute paths (`"student"`) assume a ".js" file extension and search "node_modules". |
 
-## Modern ES Modules (ESM)
+## 4. Modern ES Modules (ESM)
 
 The ESM format shares several similarities with the CommonJS format. ESM is file-based, and module instances are singletons, with everything private *by default*. One notable difference is that ESM files are assumed to be strict-mode, without needing a `"use strict"` pragma at the top. There's no way to define an ESM as non-strict-mode.
 
@@ -380,7 +380,7 @@ As is likely obvious, the `*` imports everything exported to the API, default an
 | :--- |
 | As of the time of this writing, modern browsers have supported ESM for a few years now, but Node's stable'ish support for ESM is fairly recent, and has been evolving for quite a while. The evolution is likely to continue for another year or more; the introduction of ESM to JS back in ES6 created a number of challenging compatibility concerns for Node's interop with CommonJS modules. Consult Node's ESM documentation for all the latest details: https://nodejs.org/api/esm.html |
 
-## Exit Scope
+## 5. Exit Scope
 
 Whether you use the classic module format (browser or Node), CommonJS format (in Node), or ESM format (browser or Node), modules are one of the most effective ways to structure and organize your program's functionality and data.
 

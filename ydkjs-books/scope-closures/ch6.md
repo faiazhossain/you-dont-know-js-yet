@@ -5,7 +5,7 @@ So far our focus has been explaining the mechanics of how scopes and variables w
 
 To begin, we're going to look at how and why we should be using different levels of scope (functions and blocks) to organize our program's variables, specifically to reduce scope over-exposure.
 
-## Least Exposure
+## 1. Least Exposure
 
 It makes sense that functions define their own scopes. But why do we need blocks to create scopes as well?
 
@@ -58,7 +58,7 @@ In this `diff(..)` function, we want to ensure that `y` is greater than or equal
 
 In this simple example, it doesn't seem to matter whether `tmp` is inside the `if` block or whether it belongs at the function level—it certainly shouldn't be a global variable! However, following the POLE principle, `tmp` should be as hidden in scope as possible. So we block scope `tmp` (using `let`) to the `if` block.
 
-## Hiding in Plain (Function) Scope
+## 2. Hiding in Plain (Function) Scope
 
 It should now be clear why it's important to hide our variable and function declarations in the lowest (most deeply nested) scopes possible. But how do we do so?
 
@@ -177,7 +177,7 @@ That means we can name every single occurrence of such a function expression the
 
 In fact, we *could* just leave off the name entirely—thus defining an "anonymous `function` expression" instead. But Appendix A will discuss the importance of names even for such scope-only functions.
 
-### Invoking Function Expressions Immediately
+### 2.1 Invoking Function Expressions Immediately
 
 There's another important bit in the previous factorial recursive program that's easy to miss: the line at the end of the `function` expression that contains `})();`.
 
@@ -213,7 +213,7 @@ For example, a `return` statement in some piece of code would change its meaning
 
 So, if the code you need to wrap a scope around has `return`, `this`, `break`, or `continue` in it, an IIFE is probably not the best approach. In that case, you might look to create the scope with a block instead of a function.
 
-## Scoping with Blocks
+## 3. Scoping with Blocks
 
 You should by this point feel fairly comfortable with the merits of creating scopes to limit identifier exposure.
 
@@ -377,7 +377,7 @@ We split them out into each inner nested scope as appropriate. Each variable is 
 
 `sortedNames` could have been defined in the top-level function scope, but it's only needed for the second half of this function. To avoid over-exposing that variable in a higher level scope, we again follow POLE and block-scope it in the inner explicit block scope.
 
-### `var` *and* `let`
+### 3.1 `var` *and* `let`
 
 Next, let's talk about the declaration `var buckets`. That variable is used across the entire function (except the final `return` statement). Any variable that is needed across all (or even most) of a function should be declared so that such usage is obvious.
 
@@ -415,7 +415,7 @@ There are other semantic and operational reasons to choose `var` or `let` in dif
 | :--- |
 | My recommendation to use both `var` *and* `let` is clearly controversial and contradicts the majority. It's far more common to hear assertions like, "var is broken, let fixes it" and, "never use var, let is the replacement." Those opinions are valid, but they're merely opinions, just like mine. `var` is not factually broken or deprecated; it has worked since early JS and it will continue to work as long as JS is around. |
 
-### Where To `let`?
+### 3.2 Where To `let`?
 
 My advice to reserve `var` for (mostly) only a top-level function scope means that most other declarations should use `let`. But you may still be wondering how to decide where each declaration in your program belongs?
 
@@ -513,7 +513,7 @@ if (lastI < 5) {
 
 `lastI` is needed across this whole scope, so it's declared with `var`. `i` is only needed in (each) loop iteration, so it's declared with `let`.
 
-### What's the Catch?
+### 3.3 What's the Catch?
 
 So far we've asserted that `var` and parameters are function-scoped, and `let`/`const` signal block-scoped declarations. There's one little exception to call out: the `catch` clause.
 
@@ -556,7 +556,7 @@ catch {   // catch-declaration omitted
 
 This is a small but delightful simplification of syntax for a fairly common use case, and may also be slightly more performant in removing an unnecessary scope!
 
-## Function Declarations in Blocks (FiB)
+## 4. Function Declarations in Blocks (FiB)
 
 We've seen now that declarations using `let` or `const` are block-scoped, and `var` declarations are function-scoped. So what about `function` declarations that appear directly inside blocks? As a feature, this is called "FiB."
 
@@ -685,7 +685,7 @@ Even if you test your program and it works correctly, the small benefit you may 
 
 FiB is not worth it, and should be avoided.
 
-## Blocked Over
+## 5. Blocked Over
 
 The point of lexical scoping rules in a programming language is so we can appropriately organize our program's variables, both for operational as well as semantic code communication purposes.
 

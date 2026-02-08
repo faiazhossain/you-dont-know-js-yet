@@ -9,7 +9,7 @@ We've thoroughly covered all of the different *types* of values in JS. And along
 
 In this chapter, we'll dive deep into coercion and uncover all its mysteries.
 
-## Coercion: Explicit vs Implicit
+## 1. Coercion: Explicit vs Implicit
 
 Some developers assert that when you explicitly indicate a type change in an operation, this doesn't qualify as a *coercion* but just a type-cast or type-conversion. In other words, the claim is that coercion is only implicit.
 
@@ -17,7 +17,7 @@ I disagree with this characterization. I use *coercion* to label any type conver
 
 Keep that subjectivity in mind as we explore various *explicit* and *implicit* forms of coercion. In fact, here's a spoiler: most of the coercions could be argued as either, so we'll be looking at them with such balanced perspective.
 
-### Implicit: Bad or ...?
+### 1.1 Implicit: Bad or ...?
 
 An extremely common opinion among JS developers is that *coercion is bad*, specifically, that *implicit coercion is bad*; the rise in popularity of type-aware tooling like TypeScript speaks loudly to this sentiment.
 
@@ -37,7 +37,7 @@ So what do we make of this dissonance? Is it merely a, "do as I say, not as I do
 
 I am not going to pass a final judgement here yet, but I want you the reader to deeply ponder that question, as you continue throughout this chapter and book.
 
-## Abstracts
+## 2. Abstracts
 
 Now that I've challenged you to examine coercion in more depth than you may have ever previously indulged, let's first look at the foundations of how coercion occurs, according to the JS specification.
 
@@ -45,7 +45,7 @@ The specification details a number of *abstract operations*[^AbstractOperations]
 
 These operations *look* as if they're real functions that could be called, such as `ToString(..)` or `ToNumber(..)`. But by *abstract*, we mean they only exist conceptually by these names; they aren't functions we can *directly* invoke in our programs. Instead, we activate them implicitly/indirectly depending on the statements/expressions in our programs.
 
-### ToBoolean
+### 2.1 ToBoolean
 
 Decision making (conditional branching) always requires a boolean `true` or `false` value. But it's extremely common to want to make these decisions based on non-boolean value conditions, such as whether a string is empty or has anything in it.
 
@@ -84,7 +84,7 @@ The `ToBoolean()` coercion operation is basically a lookup table rather than an 
 
 Keep in mind: these rules of boolean coercion only apply when `ToBoolean()` is actually activated. There are constructs/idioms in the JS language that may appear to involve boolean coercion but which don't actually do so. More on these later.
 
-### ToPrimitive
+### 2.2 ToPrimitive
 
 Any value that's not already a primitive can be reduced to a primitive using the `ToPrimitive()` (specifically, `OrdinaryToPrimitive()`[^OrdinaryToPrimitive]) abstract operation.  Generally, the `ToPrimitive()` is given a *hint* to tell it whether a `number` or `string` is preferred.
 
@@ -102,7 +102,7 @@ If the method returns a value matching the *hinted* type, the operation is finis
 
 If the attempts at method invocation fail to produce a value of the *hinted* type, the final return value is forcibly coerced via the corresponding abstract operation: `ToString()` or `ToNumber()`.
 
-### ToString
+### 2.3 ToString
 
 Pretty much any value that's not already a string can be coerced to a string representation, via `ToString()`. [^ToString] This is usually quite intuitive, especially with primitive values:
 
@@ -161,7 +161,7 @@ ToString([ 1, 2, 3 ]);              // "1,2,3"
 
 By virtue of `ToPrimitive(..,"string")` delegation, these objects all have their default `toString()` method (inherited via `[[Prototype]]`) invoked.
 
-### ToNumber
+### 2.4 ToNumber
 
 Non-number values *that resemble* numbers, such as numeric strings, can generally be coerced to a numeric representation, using `ToNumber()`: [^ToNumber]
 
@@ -252,7 +252,7 @@ ToNumber([]);                       // 0
 
 By virtue of `ToPrimitive(..,"number")` delegation, these objects all have their default `valueOf()` method (inherited via `[[Prototype]]`) invoked.
 
-### Equality Comparison
+### 2.5 Equality Comparison
 
 When JS needs to determine if two values are the *same value*, it activates the `SameValue()`[^SameValue] operation, which delegates to a variety of related sub-operations.
 
@@ -347,7 +347,7 @@ Importantly, we see that both `IsLooselyEqual()` and `IsStrictlyEqual()` are typ
 
 Moreover, if/once the types are the same, both operations are identical -- `IsLooselyEqual()` delegates to `IsStrictlyEqual()`.
 
-### Relational Comparison
+### 2.6 Relational Comparison
 
 When values are compared relationally -- that is, is one value "less than" another? -- there's one specific abstract operation that is activated: `IsLessThan()`. [^LessThan]
 
@@ -410,11 +410,11 @@ IsLessThan(NaN,1 /*LeftFirst=*/ true );          // false
 IsLessThan(41n,42n, /*LeftFirst=*/ true );       // true
 ```
 
-## Concrete Coercions
+## 3. Concrete Coercions
 
 Now that we've covered all the abstract operations JS defines for handling various coercions, it's time to turn our attention to the concrete statements/expressions we can use in our programs that activate these operations.
 
-### To Boolean
+### 3.1 To Boolean
 
 To coerce a value that's not of type `boolean` into that type, we need the abstract `ToBoolean()` operation, as described earlier in this chapter.
 
@@ -492,7 +492,7 @@ I think that's too much of a stretch, though. My take: `Boolean(..)` is the most
 
 Since most developers, including famous names like Doug Crockford, also in practice use implicit (`boolean`) coercions in their code[^CrockfordIfs], I think we can say that at least *some forms* of *implicit* coercion are widely acceptable, regardless of the ubiquitous rhetoric to the contrary.
 
-### To String
+### 3.2 To String
 
 As with `ToBoolean()`, there are a number of ways to activate the `ToString()` coercion (as discussed earlier in the chapter). The decision of which approach is similarly subjective.
 
@@ -585,7 +585,7 @@ Why the exception? JS treats `+ ""` as an *implicit* coercion, which is why when
 
 Nevertheless, as I mentioned at the start of this chapter, Brendan Eich endorses `+ ""`[^BrendanToString] as the *best* way to coerce values to strings. I think that carries a lot of weight, in terms of him supporting at least a subset of *implicit* coercion practices. His views on *implicit* coercion must be a bit more nuanced than, "it's all bad."
 
-### To Number
+### 3.3 To Number
 
 Numeric coercions are a bit more complicated than string coercions, since we can be talking about either `number` or `bigint` as the target type. There's also a much smaller set of values that can be validly represented numerically (everything else becomes `NaN`).
 
@@ -798,7 +798,7 @@ The important part is, we need to recognize that objects cannot simply use any v
 
 We need to expect and plan for that rather than allowing it to surprise us with bugs down the road!
 
-### To Primitive
+### 3.4 To Primitive
 
 Most operators in JS, including those we've seen with coercions to `string` and `number`, are designed to run against primitive values. When any of these operators is used instead against an object value, the abstract `ToPrimitive` algorithm (as described earlier) is activated to coerce the object to a primitive.
 
@@ -1068,7 +1068,7 @@ Or you can just manually define a return value as shown above. Regardless, JS wi
 | :--- |
 | As discussed prior in "No Primitive Found?", if the defined `Symbol.toPrimitive` function does not actually return a value that's a primitive, an exception will be thrown about being unable to "...convert object to primitive value". Make sure to always return an actual primitive value from such a function! |
 
-### Equality
+### 3.5 Equality
 
 Thus far, the coercions we've seen have been focused on single values. We turn out attention now to equality comparisons, which inherently involve two values, either or both of which may be subject to coercion.
 
@@ -1340,13 +1340,13 @@ Never, ever, under any circumstances, perform a `==` check if either side of the
 
 When you're dealing with booleans, stick to the implicitly coercive forms that are genuinely activating `ToBoolean()`, such as `if (isLoggedIn)`, and stay away from the `==` / `===` forms.
 
-## Coercion Corner Cases
+## 4. Coercion Corner Cases
 
 I've been clear in expressing my pro-coercion opinion thus far. And it *is* just an opinion, though it's based on interpreting facts gleaned from studying the language specification and observable JS behaviors.
 
 That's not to say that coercion is perfect. There's several frustrating corner cases we need to be aware of, so we avoid tripping into those potholes. In case it's not clear, my following characterizations of these corner cases are just more of my opinions. Your mileage may vary.
 
-### Strings
+### 4.1 Strings
 
 We already saw that the string coercion of an array looks like this:
 
@@ -1378,7 +1378,7 @@ String({ a: 1 });                   // "[object Object]"
 
 Umm... OK. Sure, thanks JS for no help at all in understanding what the object value is.
 
-### Numbers
+### 4.2 Numbers
 
 I'm about to reveal what I think is *the* worst root of all coercion corner case evil. Are you ready for it?!?
 
@@ -1431,7 +1431,7 @@ Really? I don't think there's any case where treating a `boolean` as its `number
 
 But I genuniely feel that `Number(false)` and `Number(true)` (as well as any implicit coercion forms) should produce `NaN`, not `0` / `1`.
 
-### Coercion Absurdity
+### 4.3 Coercion Absurdity
 
 To prove my point, let's take the absurdity up to level 11:
 
@@ -1454,7 +1454,7 @@ We've got three different absurdities conspiring against us: `String([])`, `Numb
 
 Let me make something absolutely clear, though: none of this is `==`'s fault. It gets the blame here, of course. But the real culprits are the underlying `string` and `number` corner cases.
 
-## Type Awareness
+## 5. Type Awareness
 
 We've now sliced and diced and examined coercion from every conceivable angle, starting from the abstract internals of the specification, then moving to the concrete expressions and statements that actually trigger the coercions.
 
@@ -1468,7 +1468,7 @@ In other words, no matter what you do, you won't be able to get away from the ne
 
 Type-aware programming is always, always better than type ignorant/agnostic programming.
 
-### Uhh... TypeScript?
+### 5.1 Uhh... TypeScript?
 
 Surely you're thinking at this moment: "Why can't I just use TypeScript and declare all my types statically, avoiding all the confusion of dynamic typing and coercion?"
 
@@ -1486,7 +1486,7 @@ By contrast, JS is **dynamically-typed** (meaning types are discovered and manag
 | :--- |
 | I'm hand-waving at a pretty high level here, and intentionally not diving deeply into lots of nuance on the static/dynamic and strong/weak typing spectrums. If you're feeling the urge to "Well, actually..." me at this moment, please just hold on a bit and let me lay out my arguments. |
 
-### Type-Awareness *Without* TypeScript
+### 5.2 Type-Awareness *Without* TypeScript
 
 Does a dynamically-typed system automatically mean you're programming with less type-awareness? Many would argue that, but I disagree.
 
@@ -1544,7 +1544,7 @@ I also know that `versionDigit` will hold a string, because that's what regular-
 
 By my definition, that kind of thinking, and that style of coding, is type-aware. Type-awareness in coding means thinking carefully about whether or not such things will be *clear* and *obvious* to the reader of the code.
 
-### Type-Awareness *With* TypeScript
+### 5.3 Type-Awareness *With* TypeScript
 
 TypeScript fans will point out that TypeScript can, via type inference, do static typing (enforcement) without ever needing a single type annotation in the program. So all the code examples I shared in the previous section, TypeScript can also handle, and provide its flavor of compile-time static type enforcement.
 
@@ -1611,7 +1611,7 @@ Moreover, comparing the code style in the previous section to the code in this s
 
 Like, does that `type VersionedURL = ..` and `API_BASE_URL: VersionedURL` stuff *actually* make our code more clearly type-aware? I don't necessarily think so.
 
-### TypeScript Intelligence
+### 5.4 TypeScript Intelligence
 
 Yes, I hear you screaming at me through the computer screen. Yes, I know that TypeScript provides what type information it discovers (or infers) to your code editor, which comes through in the form of intelligent autocompletes, helpful inline warning markers, etc.
 
@@ -1623,7 +1623,7 @@ Look, the magic of a language-server pumping intelligence into your code editor 
 
 And I don't begrudge TypeScript as a tool inferring things about my **JS code** and giving me hints and suggestions through delightful code editor integrations. I just don't necessarily want to *have* to annotate type information in some extremely specific way just to silence the tool's complaints.
 
-### The Bar Above TypeScript
+### 5.5 The Bar Above TypeScript
 
 But even if I did/had all that, it's still not ***sufficient*** for me to be fully type-aware, both as a code-author and as a code-reader.
 
@@ -1647,7 +1647,7 @@ Unfortunately, TypeScript can never fully escape JS's type system, because TypeS
 | :--- |
 | Imagine if someone handed you a cup of filtered water to drink. And just before you took a sip, they said, "We extracted that water from the ground near a waste dump. But don't worry, we used a perfectly great filter, and that water is totally safe!" How much do you trust that filter? More to my overall point, wouldn't you feel more comfortable drinking that water if you understood everything about the source of the water, all the processes of filtration, and everything that was *in* the water of the glass in your hand!? Or is trusting that filter good enough? |
 
-### Type Aware Equality
+### 5.6 Type Aware Equality
 
 I'll close this long, winding chapter with one final illustration, modeling how I think developers should -- armed with more critical thinking than bandwagon conformism -- approach type-aware coding, whether you use a tool like TypeScript or not.
 
@@ -1843,7 +1843,7 @@ Why is `ToBoolean()` an OK implicit coercion, but `ToNumber()` in the `==` algor
 
 I will leave you to ponder this: do you really think it's a good idea to write code that will ultimately run in a JS engine, but use a tool and style of code that has intentionally ejected most of an entire pillar of the JS language? Moreover, is it fine that it's also flip-flopped with a variety of inconsistent exceptions, simply to cater to the old habits of JS developers?
 
-## What's Left?
+## 6. What's Left?
 
 I hope by now you're feeling a lot more informed about how JS's type system works, from primitive value types to the object types, to how type coercions are performed by the engine.
 

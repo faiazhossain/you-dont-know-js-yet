@@ -7,7 +7,7 @@ But just knowing which scope a variable comes from is only part of the story. If
 
 JS's particular flavor of lexical scope is rich with nuance in how and when variables come into existence and become available to the program.
 
-## When Can I Use a Variable?
+## 1. When Can I Use a Variable?
 
 At what point does a variable become available to use within its scope? There may seem to be an obvious answer: *after* the variable has been declared/created. Right? Not quite.
 
@@ -38,7 +38,7 @@ One key detail is that both *function hoisting* and `var`-flavored *variable hoi
 | :--- |
 | Declarations with `let` and `const` still hoist (see the TDZ discussion later in this chapter). But these two declaration forms attach to their enclosing block rather than just an enclosing function as with `var` and `function` declarations. See "Scoping with Blocks" in Chapter 6 for more information. |
 
-### Hoisting: Declaration vs. Expression
+### 1.1 Hoisting: Declaration vs. Expression
 
 *Function hoisting* only applies to formal `function` declarations (specifically those which appear outside of blocks—see "FiB" in Chapter 6), not to `function` expression assignments. Consider:
 
@@ -65,7 +65,7 @@ Pay close attention to the distinction here. A `function` declaration is hoisted
 
 In both cases, the name of the identifier is hoisted. But the function reference association isn't handled at initialization time (beginning of the scope) unless the identifier was created in a formal `function` declaration.
 
-### Variable Hoisting
+### 1.2 Variable Hoisting
 
 Let's look at another example of *variable hoisting*:
 
@@ -88,7 +88,7 @@ There's two necessary parts to the explanation:
 | :--- |
 | Using *variable hoisting* of this sort probably feels unnatural, and many readers might rightly want to avoid relying on it in their programs. But should all hoisting (including *function hoisting*) be avoided? We'll explore these different perspectives on hoisting in more detail in Appendix A. |
 
-## Hoisting: Yet Another Metaphor
+## 2. Hoisting: Yet Another Metaphor
 
 Chapter 2 was full of metaphors (to illustrate scope), but here we are faced with yet another: hoisting itself. Rather than hoisting being a concrete execution step the JS engine performs, it's more useful to think of hoisting as a visualization of various actions JS takes in setting up the program **before execution**.
 
@@ -145,7 +145,7 @@ I assert that hoisting *should* be used to refer to the **compile-time operation
 
 That's a subtle but important shift, from hoisting as a runtime behavior to its proper place among compile-time tasks.
 
-## Re-declaration?
+## 3. Re-declaration?
 
 What do you think happens when a variable is declared more than once in the same scope? Consider:
 
@@ -261,7 +261,7 @@ It's really more of a "social engineering" issue. "Re-declaration" of variables 
 
 When *Compiler* asks *Scope Manager* about a declaration, if that identifier has already been declared, and if either/both declarations were made with `let`, an error is thrown. The intended signal to the developer is "Stop relying on sloppy re-declaration!"
 
-### Constants?
+### 3.1 Constants?
 
 The `const` keyword is more constrained than `let`. Like `let`, `const` cannot be repeated with the same identifier in the same scope. But there's actually an overriding technical reason why that sort of "re-declaration" is disallowed, unlike `let` which disallows "re-declaration" mostly for stylistic reasons.
 
@@ -298,7 +298,7 @@ const studentName = "Suzy";
 
 Since `const` "re-declaration" must be disallowed (on those technical grounds), TC39 essentially felt that `let` "re-declaration" should be disallowed as well, for consistency. It's debatable if this was the best choice, but at least we have the reasoning behind the decision.
 
-### Loops
+### 3.2 Loops
 
 So it's clear from our previous discussion that JS doesn't really want us to "re-declare" our variables within the same scope. That probably seems like a straightforward admonition, until you consider what it means for repeated execution of declaration statements in loops. Consider:
 
@@ -458,7 +458,7 @@ for (const i = 0; keepGoing; /* nothing here */ ) {
 
 That works, but it's pointless. There's no reason to declare `i` in that position with a `const`, since the whole point of such a variable in that position is **to be used for counting iterations**. Just use a different loop form, like a `while` loop, or use a `let`!
 
-## Uninitialized Variables (aka, TDZ)
+## 4. Uninitialized Variables (aka, TDZ)
 
 With `var` declarations, the variable is "hoisted" to the top of its scope. But it's also automatically initialized to the `undefined` value, so that the variable can be used throughout the entire scope.
 
@@ -581,7 +581,7 @@ My advice: always put your `let` and `const` declarations at the top of any scop
 
 But why is TDZ even a thing? Why didn't TC39 dictate that `let`/`const` auto-initialize the way `var` does? Just be patient, we'll come back to explore the *why* of TDZ in Appendix A.
 
-## Finally Initialized
+## 5. Finally Initialized
 
 Working with variables has much more nuance than it seems at first glance. *Hoisting*, *(re)declaration*, and the *TDZ* are common sources of confusion for developers, especially those who have worked in other languages before coming to JS. Before moving on, make sure your mental model is fully grounded on these aspects of JS scope and variables.
 

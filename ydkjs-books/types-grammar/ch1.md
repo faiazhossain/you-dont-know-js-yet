@@ -9,7 +9,7 @@ In Chapter 1 of the "Objects & Classes" book of this series, we confronted the c
 
 Here, we'll look at the core value types of JS, specifically the non-object types called *primitives*.
 
-## Value Types
+## 1. Value Types
 
 JS doesn't apply types to variables or properties -- what I call, "container types" -- but rather, values themselves have types -- what I call, "value types".
 
@@ -25,7 +25,7 @@ The language provides seven built-in, primitive (non-object) value types: [^Prim
 
 These value-types define collections of one or more concrete values, each with a set of shared behaviors for all values of each type.
 
-### Type-Of
+### 1.1 Type-Of
 
 Any value's value-type can be inspected via the `typeof` operator, which always returns a `string` value representing the underlying JS value-type:
 
@@ -48,7 +48,7 @@ typeof greeting;        // "string"
 
 JS variables themselves don't have types. They hold any arbitrary value, which itself has a value-type.
 
-### Non-objects?
+### 1.2 Non-objects?
 
 What specifically makes the 7 primitive value types distinct from the object value types (and sub-types)? Why shouldn't we just consider them all as essentially *objects* under the covers?
 
@@ -90,7 +90,7 @@ So what can we conclude about the distinction between primitives and objects? Pr
 | :--- |
 | This particular distinction seems to be contradicted by expressions like `"hello".length`; even in strict-mode, it returns the expected value `5`. So it certainly *seems* like the string has a `length` property! But, as just previously mentioned, the correct explanation is *auto-boxing*; we'll cover the topic in "Automatic Objects" in Chapter 3. |
 
-## Empty Values
+## 2. Empty Values
 
 The `null` and `undefined` types both typically represent an emptiness or absence of value.
 
@@ -125,7 +125,7 @@ typeof whatever[10];            // "undefined"
 
 However, each respective "empty" type has exactly one value, of the same name. So `null` is the only value in the `null` value-type, and `undefined` is the only value in the `undefined` value-type.
 
-### Null'ish
+### 2.1 Null'ish
 
 Semantically, `null` and `undefined` types both represent general emptiness, or absence of another affirmative, meaningful value.
 
@@ -206,7 +206,7 @@ The `?.(` operator seems like it is checking to see if `someFunc(..)` is a valid
 | :--- |
 | Because of that gotcha, I *strongly dislike* this operator form, and caution anyone against ever using it. I think it's a poorly conceived feature that does more harm (to JS itself, and to programs) than good. There's very few JS features I would go so far as to say, "never use it." But this is one of the truly *bad parts* of the language, in my opinion. |
 
-### Distinct'ish
+### 2.2 Distinct'ish
 
 It's important to keep in mind that `null` and `undefined` *are* actually distinct types, and thus `null` can be noticeably different from `undefined`. You can, carefully, construct programs that mostly treat them as indistinguishable. But that requires care and discipline by the developer. From JS's perspective, they're more often distinct.
 
@@ -228,7 +228,7 @@ The `= ..` clause on a parameter is referred to as the "parameter default". It o
 
 There's no *right* or *wrong* way to use `null` or `undefined` in a program. So the takeaway is: be careful when choosing one value or the other. And if you're using them interchangeably, be extra careful.
 
-## Boolean Values
+## 3. Boolean Values
 
 The `boolean` type contains two values: `false` and `true`.
 
@@ -256,7 +256,7 @@ while (!isComplete) {
 
 The `!` operator negates/flips a boolean value to the other one: `false` becomes `true`, and `true` becomes `false`.
 
-## String Values
+## 4. String Values
 
 The `string` type contains any value which is a collection of one or more characters, delimited (surrounding on either side) by quote characters:
 
@@ -282,7 +282,7 @@ This does not necessarily correspond to the number of visible characters present
 | :--- |
 | We'll cover length computation of strings in detail, in Chapter 2. |
 
-### JS Character Encodings
+### 4.1 JS Character Encodings
 
 What type of character encoding does JS use for string characters?
 
@@ -306,7 +306,7 @@ This has implications on the length of strings, because a single visible charact
 
 We'll revisit Unicode characters in a bit, and then cover the challenges of computing string length in Chapter 2.
 
-### Escape Sequences
+### 4.2 Escape Sequences
 
 If `"` or `'` are used to delimit a string literal, the contents are only parsed for *character-escape sequences*: `\` followed by one or more characters that JS recognizes and parses with special meaning. Any other characters in a string that don't parse as escape-sequences (single-character or multi-character), are inserted as-is into the string value.
 
@@ -361,7 +361,7 @@ Because the end-of-line `\` turns the new-line character into a line continuatio
 | :--- |
 | This line-continuation feature is often referred to as "multi-line strings", but I think that's a confusing label. As you can see, the string value itself doesn't have multiple lines, it only was defined across multiple lines via the line continuations. A multi-line string would actually have multiple lines in the underlying value. We'll revisit this topic later in this chapter when we cover Template Literals. |
 
-### Multi-Character Escapes
+### 4.3 Multi-Character Escapes
 
 Multi-character escape sequences may be hexadecimal or Unicode sequences.
 
@@ -494,7 +494,7 @@ Unlike surrogate pairs and combining marks, the symbols in grapheme clusters can
 
 This kind of complexity significantly affects length computations, comparison, sorting, and many other common string-oriented operations.
 
-### Template Literals
+### 4.4 Template Literals
 
 I mentioned earlier that strings can alternately be delimited with `` `..` `` back-ticks:
 
@@ -559,7 +559,7 @@ Moreover, there are a few places where `` `..` `` style strings are disallowed. 
 
 My take: use `` `..` `` delimited strings where allowed, but only when interpolation/multi-line is needed; and keep using `".."` or `'..'` delimited strings for everything else.
 
-## Number Values
+## 5. Number Values
 
 The `number` type contains any numeric value (whole number or decimal), such as `-42` or `3.1415926`. These values are represented by the JS engine as 64-bit, IEEE-754 double-precision binary floating-point values. [^IEEE754]
 
@@ -575,7 +575,7 @@ Number.isInteger(42.000000);    // true
 Number.isInteger(42.0000001);   // false
 ```
 
-### Parsing vs Coercion
+### 5.1 Parsing vs Coercion
 
 If a string value holds numeric-looking contents, you may need to convert from that string value to a `number`, for mathematical operation purposes.
 
@@ -626,7 +626,7 @@ Number("512px");                // NaN
 +"512px";                       // NaN
 ```
 
-### Other Numeric Representations
+### 5.2 Other Numeric Representations
 
 In addition to defining numbers using traditional base-10 numerals (`0`-`9`), JS supports defining whole-number-only number literals in three other bases: binary (base-2), octal (base-8), and hexadecimal (base-16).
 
@@ -728,7 +728,7 @@ totalCostInPennies = 123_45;  // vs 12_345
 
 The decision to use `12345` (no separator), `12_345` (like "12,345"), or `123_45` (like "123.45") is entirely up to the author of the code; JS ignores the separators. But depending on the context, `123_45` could be more semantically meaningful (readability wise) than the more traditional three-digit-grouping-from-the-right-separated-with-commas style mimicked with `12_345`.
 
-### IEEE-754 Bitwise Binary Representations
+### 5.3 IEEE-754 Bitwise Binary Representations
 
 IEEE-754[^IEEE754] is a technical standard for binary representation of decimal numbers. It's widely used by most computer programming languages, including JS, Python, Ruby, etc.
 
@@ -779,7 +779,7 @@ Notice how the previous bit pattern and this one differ by quite a few bits in t
 
 We'll revisit more details about floating-point (im)precision in Chapter 2. But now you understand a *bit more* about how IEEE-754 works!
 
-### Number Limits
+### 5.4 Number Limits
 
 As might be evident now that you've seen how IEEE-754 works, the 52 bits of the number's base must be shared, representing both the whole number portion (if any) as well as the decimal portion (if any), of the intended `number` value. Essentially, the larger the whole number portion to be represented, the less bits are available for the decimal portion, and vice versa.
 
@@ -842,7 +842,7 @@ Number.MIN_VALUE;               // 5e-324 <-- usually!
 
 Most JS engines seem to have a minimum representable value around `5E-324` (about `2^-1074`). Depending on the engine and/or platform, a different value may be exposed. Be careful about any program logic that relies on such implementation-dependent values.
 
-### Safe Integer Limits
+### 5.5 Safe Integer Limits
 
 Since `Number.MAX_VALUE` is an integer, you might assume that it's the largest integer in the language. But that's not really accurate.
 
@@ -875,7 +875,7 @@ Number.isSafeInteger(2 ** 53);      // false
 Number.isSafeInteger(2 ** 53 - 1);  // true
 ```
 
-### Double Zeros
+### 5.6 Double Zeros
 
 It may surprise you to learn that JS has two zeros: `0`, and `-0` (negative zero). But what on earth is a "negative zero"? [^SignedZero] A mathematician would surely balk at such a notion.
 
@@ -905,7 +905,7 @@ Without having a signed zero value, you couldn't tell which direction such an it
 | :--- |
 | While JS defines a signed zero in the `number` type, there is no corresponding signed zero in the `bigint` number type. As such, `-0n` is just interpreted as `0n`, and the two are indistinguishable. |
 
-### Invalid Number
+### 5.7 Invalid Number
 
 Mathematical operations can sometimes produce an invalid result. For example:
 
@@ -967,7 +967,7 @@ If you're not properly checking for `NaN` in your programs where you do math or 
 | :--- |
 | JS originally provided a global function called `isNaN(..)` for `NaN` checking, but it unfortunately has a long-standing coercion bug. `isNaN("Kyle")` returns `true`, even though the string value `"Kyle"` is most definitely *not* the `NaN` value. This is because the global `isNaN(..)` function forces any non-`number` argument to coerce to a `number` first, before checking for `NaN`. Coercing `"Kyle"` to a `number` produces `NaN`, so now the function sees a `NaN` and returns `true`! This buggy global `isNaN(..)` still exists in JS, but should never be used. When `NaN` checking, always use `Number.isNaN(..)`, `Object.is(..)`, etc. |
 
-## BigInteger Values
+## 6. BigInteger Values
 
 As the maximum safe integer in JS `number`s is `9007199254740991` (see above), such a relatively low limit can present a problem if a JS program needs to perform larger integer math, or even just hold values like 64-bit integer IDs (e.g., Twitter Tweet IDs).
 
@@ -1035,7 +1035,7 @@ Unlike `parseInt(..)`, if any character in the string is non-numeric (`0-9` digi
 | :--- |
 | I think it's absurd that `BigInt(..)` won't accept the trailing `n` character while string coercing (and thus effectively ignore it). I lobbied vehemently for that behavior, in the TC39 process, but was ultimately denied. In my opinion, it's now a tiny little gotcha wart on JS, but a wart nonetheless. |
 
-## Symbol Values
+## 7. Symbol Values
 
 The `symbol` type contains special opaque values called "symbols". These values can only be created by the `Symbol(..)` function:
 
@@ -1102,7 +1102,7 @@ By convention only, most developers know that if a property name is prefixed wit
 
 Symbols basically serve the same use-case, but a bit more ergonomically than the prefixing approach.
 
-### Well-Known Symbols (WKS)
+### 7.1 Well-Known Symbols (WKS)
 
 JS pre-defines a set of symbols, referred to as *well-known symbols* (WKS), that represent certain special meta-programming hooks on objects. These symbols are stored as static properties on the `Symbol` function object. For example:
 
@@ -1121,7 +1121,7 @@ String(myInfo);         // [object my-info]
 
 See the "Objects & Classes" book of this series for more information about Well-Known Symbols and metaprogramming.
 
-### Global Symbol Registry
+### 7.2 Global Symbol Registry
 
 Often, you want to keep symbol values private, such as inside a module scope. But occasionally, you want to expose them so they're accessible globally throughout all the files in a JS program.
 
@@ -1150,7 +1150,7 @@ If the registry doesn't have a symbol under that specified *key*, a new symbol (
 
 Going in the opposite direction, if you have the symbol value itself, and want to retrieve the *key* it's registered under, `Symbol.keyFor(..)` takes the symbol itself as input, and returns the *key* (if any). That's useful in case it's more convenient to pass around the *key* string value than the symbol itself.
 
-### Object or Primitive?
+### 7.3 Object or Primitive?
 
 Unlike other primitives like `42`, where you can create multiple copies of the same value, symbols *do* act more like specific object references in that they're always completely unique (for purposes of value assignment and equality comparison). The specification also categorizes the `Symbol()` function under the "Fundamental Objects" section, calling the function a "constructor", and even defining its `prototype` property.
 
@@ -1164,7 +1164,7 @@ Finally, as explained at the top of this chapter, we know primitive values are *
 
 All this considered, I think symbols are *much more* like primitives than objects, so that's how I present them in this book.
 
-## Primitives Are Built-In Types
+## 8. Primitives Are Built-In Types
 
 We've now dug deeply into the seven primitive (non-object) value types that JS provides automatically built-in.
 

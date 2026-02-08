@@ -17,7 +17,7 @@ Why are prototypes (along with the `this` keyword, covered later in the book) so
 
 So our journey here will start with objects, build up a compelete understanding of prototypes, de-mystify the `this` keyword, and explore the `class` system.
 
-## About This Book
+## 1. About This Book
 
 Welcome to book 3 in the *You Don't Know JS Yet* series! If you already finished *Get Started* (the first book) and *Scope & Closures* (the second book), you're in the right spot! If not, before you proceed I encourage you to read those two as foundations before diving into this book.
 
@@ -29,7 +29,7 @@ Now, we still need to talk about how `this` works, and how that relates to metho
 
 This book reflects JS's current reality: thus the new sub-title, new organization and focus of topics, and complete re-write of the previous edition's text.
 
-## Objects As Containers
+## 2. Objects As Containers
 
 One common way of gathering up multiple values in a single container is with an object. Objects are collections of key/value pairs. There are also sub-types of object in JS with specialized behaviors, such as arrays (numerically indexed) and even functions (callable); more on these sub-types later.
 
@@ -57,7 +57,7 @@ It's easy to get confused what pairs of `{ .. }` mean, since JS overloads the cu
 
 Though it can sometimes be challenging as you read code, look for whether a `{ .. }` curly brace pair is used in the program where a value/expression is valid to appear; if so, it's an object literal, otherwise it's one of the other overloaded uses.
 
-## Defining Properties
+## 3. Defining Properties
 
 Inside the object literal curly braces, you define properties (name and value) with `propertyName: propertyValue` pairs, like this:
 
@@ -94,7 +94,7 @@ myObj = {
 
 In this case, `favoriteNumber` is not holding a numeric value, but rather a function reference. To compute the result, that function reference must be explicitly executed.
 
-### Looks Like JSON?
+### 3.1 Looks Like JSON?
 
 You may notice that this object-literal syntax we've seen thus far resembles a related syntax, "JSON" (JavaScript Object Notation):
 
@@ -125,7 +125,7 @@ myObj = {
 
 One other minor difference is, JSON syntax -- that is, text that will be *parsed* as JSON, such as from a `.json` file -- is stricter than general JS. For example, JS allows comments (`// ..` and `/* .. */`), and trailing `,` commas in object and array expressions; JSON does not allow any of these. Thankfully, JSON does still allow arbitrary whitespace.
 
-### Property Names
+### 3.2 Property Names
 
 Property names in object literals are almost always treated/coeced as string values. One exception to this is for integer (or "integer looking") property "names":
 
@@ -155,7 +155,7 @@ anotherObj = {
 
 The expression `"x" + (21 * 2)`, which must appear inside of `[ .. ]` brackets, is computed immediately, and the result (`"x42"`) is used as the property name.
 
-### Symbols As Property Names
+### 3.3 Symbols As Property Names
 
 ES6 added a new primitive value type of `Symbol`, which is often used as a special property name for storing and retrieving property values. They're created via the `Symbol(..)` function call (**without** the `new` keyword), which accepts an optional description string used only for friendlier debugging purposes; if specified, the description is inaccessible to the JS program and thus not used for any other purpose than debug output.
 
@@ -183,7 +183,7 @@ Because symbols are globally unique in your program, there's **no** chance of ac
 
 Symbols are also useful to hook into special default behaviors of objects, and we'll cover that in more detail in "Extending the MOP" in the next chapter.
 
-### Concise Properties
+### 3.4 Concise Properties
 
 When defining an object literal, it's common to use a property name that's the same as an existing in-scope identifier that holds the value you want to assign.
 
@@ -213,7 +213,7 @@ The property name is `"coolFact"` (string), and the value assigned to the proper
 
 At first, this shorthand convenience may seem confusing. But as you get more familiar with seeing this very common and popular feature being used, you'll likely favor it for typing (and reading!) less.
 
-### Concise Methods
+### 3.5 Concise Methods
 
 Another similar shorthand is defining functions/methods in an object literal using a more concise form:
 
@@ -253,7 +253,7 @@ anotherObj = {
 };
 ```
 
-### Object Spread
+### 3.6 Object Spread
 
 Another way to define properties at object literal creation time is with a form of the `...` syntax -- it's not technically an operator, but it certainly seems like one -- often referred to as "object spread".
 
@@ -289,7 +289,7 @@ Keep in mind you cannot `...` spread into an existing object value; the `...` ob
 
 But if you instead want to copy object properties (shallowly) into an *existing* object, see the "Assigning Properties" section later in this chapter (with coverage of `Object.assign(..)`).
 
-### Deep Object Copy
+### 3.7 Deep Object Copy
 
 Also, since `...` doesn't do full, deep object duplication, the object spread is generally only suitable for duplicating objects that hold simple, primitive values only, not references to other objects.
 
@@ -309,7 +309,7 @@ myObjCopy = structuredClone(myObj);
 
 The underlying algorithm behind this built-in utility supports duplicating circular references, as well as **many more** types of values than the `JSON` round-trip trick. However, this algorithm still has its limits, including no support for cloning functions or DOM elements.
 
-## Accessing Properties
+## 4. Accessing Properties
 
 Property access of an existing object is preferably done with the `.` operator:
 
@@ -352,7 +352,7 @@ myObj[`${ howMany(1) } nicknames`];   // [ "getify", "ydkjs" ]
 
 In this snippet, the expression is a back-tick delimited `` `template string literal` `` with an interpolated expression of the function call `howMany(1)`. The overall result of that expression is the string value `"2 nicknames"`, which is then used as the property name to access.
 
-### Object Entries
+### 4.1 Object Entries
 
 You can get a listing of the properties in an object, as an array of tuples (two-element sub-arrays) holding the property name and value:
 
@@ -378,7 +378,7 @@ myObjShallowCopy = Object.fromEntries( Object.entries(myObj) );
 // myObjShallowCopy = { ...myObj };
 ```
 
-### Destructuring
+### 4.2 Destructuring
 
 Another approach to accessing properties is through object destructuring (added in ES6). Think of destructuring as defining a "pattern" that describes what an object value is supposed to "look like" (structurally), and then asking JS to follow that "pattern" to systematically access the contents of an object value.
 
@@ -449,7 +449,7 @@ fave;  // 42
 
 Object destructuring syntax is generally preferred for its declarative and more readable style, over the heavily imperative pre-ES6 equivalents. But don't go overboard with destructuring. Sometimes just doing `x = someObj.x` is perfectly fine!
 
-### Conditional Property Access
+### 4.3 Conditional Property Access
 
 Recently (in ES2020), a feature known as "optional chaining" was added to JS, which augments property access capabilities (especially nested property access). The primary form is the two-character compound operator `?.`, like `A?.B`.
 
@@ -503,7 +503,7 @@ Everything asserted about how `?.` behaves goes the same for `?.[`.
 | :--- |
 | There's a third form of this feature, named "optional call", which uses `?.(` as the operator. It's used for performing a non-null'ish check on a property before executing the function value in the property. For example, instead of `myObj.someFunc(42)`, you can do `myObj.someFunc?.(42)`. The `?.(` checks to make sure `myObj.someFunc` is non-null'ish before invoking it (with the `(42)` part). While that may sound like a useful feature, I think this is dangerous enough to warrant complete avoidance of this form/construct.<br><br>My concern is that `?.(` makes it seem as if we're ensuring that the function is "callable" before calling it, when in fact we're only checking if it's non-null'ish. Unlike `?.` which can allow a "safe" `.` access against a non-null'ish value that's also not an object, the `?.(` non-null'ish check isn't similarly "safe". If the property in question has any non-null'ish, non-function value in it, like `true` or `"Hello"`, the `(42)` call part will be invoked and yet throw a JS exception. So in other words, this form is unfortunately masquerading as more "safe" than it actually is, and should thus be avoided in essentially all circumstances. If a property value can ever *not be* a function, do a more fullsome check for its function'ness before trying to invoke it. Don't pretend that `?.(` is doing that for you, or future readers/maintainers of your code (including your future self!) will likely regret it. |
 
-### Accessing Properties On Non-Objects
+### 4.4 Accessing Properties On Non-Objects
 
 This may sound counter-intuitive, but you can generally access properties/methods from values that aren't themselves objects:
 
@@ -528,7 +528,7 @@ Note that `null` and `undefined` can be object-ified, by calling `Object(null)` 
 | :--- |
 | Boxing has a counterpart: unboxing. For example, the JS engine will take an object wrapper -- like a `Number` object wrapped around `42` -- created with `Number(42)` or `Object(42)` -- and unwrap it to retrieve the underlying primitive `42`, whenever a mathematical operation (like `*` or `-`) encounters such an object. Unboxing behavior is way out of scope for our discussion, but is covered fully in the aforementioned "Types & Grammar" title. |
 
-## Assigning Properties
+## 5. Assigning Properties
 
 Whether a property is defined at the time of object literal definition, or added later, the assignment of a property value is done with the `=` operator, as any other normal assignment would be:
 
@@ -563,7 +563,7 @@ Object.assign(
 
 `Object.assign(..)` takes the first object as target, and the second (and optionally subsequent) object(s) as source(s). Copying is done in the same manner as described earlier in the "Object Spread" section.
 
-## Deleting Properties
+## 6. Deleting Properties
 
 Once a property is defined on an object, the only way to remove it is with the `delete` operator:
 
@@ -585,7 +585,7 @@ Calling `delete` on anything other than an object property is a misuse of the `d
 
 Deleting a property from an object is distinct from assigning it a value like `undefined` or `null`. A property assigned `undefined`, either initially or later, is still present on the object, and might still be revealed when enumerating the contents
 
-## Determining Container Contents
+## 7. Determining Container Contents
 
 You can determine an object's contents in a variety of ways. To ask an object if it has a specific property:
 
@@ -613,7 +613,7 @@ There *is* an important difference between how the `in` operator and the `hasOwn
 
 If you're paying close attention, you may have noticed that `myObj` appears to have a method property called `hasOwnProperty(..)` on it, even though we didn't define such. That's because `hasOwnProperty(..)` is defined as a built-in on `Object.prototype`, which by default is "inherited by" all normal objects. There is risk inherent to accessing such an "inherited" method, though. Again, more on prototypes in the next chapter.
 
-### Better Existence Check
+### 7.1 Better Existence Check
 
 ES2022 (almost official at time of writing) has already settled on a new feature, `Object.hasOwn(..)`. It does essentially the same thing as `hasOwnProperty(..)`, but it's invoked as a static helper external to the object value instead of via the object's `[[Prototype]]`, making it safer and more consistent in usage:
 
@@ -638,7 +638,7 @@ if (!Object.hasOwn) {
 
 Including a polyfill patch such as that in your program means you can safely start using `Object.hasOwn(..)` for property existence checks no matter whether a JS environment has `Object.hasOwn(..)` built in yet or not.
 
-### Listing All Container Contents
+### 7.2 Listing All Container Contents
 
 We already discussed the `Object.entries(..)` API earlier, which tells us what properties an object has (as long as they're enumerable -- more in the next chapter).
 
@@ -650,7 +650,7 @@ Yet as we've implied several times already, and will cover in full detail in the
 
 Recall that the `in` operator will potentially traverse the entire chain looking for the existence of a property. Similarly, a `for..in` loop will traverse the chain and list any enumerable (owned or inherited) properties. But there's no built-in API that will traverse the whole chain and return a list of the combined set of both *owned* and *inherited* contents.
 
-## Temporary Containers
+## 8. Temporary Containers
 
 Using a container to hold multiple values is sometimes just a temporary transport mechanism, such as when you want to pass multiple values to a function via a single argument, or when you want a function to return multiple values:
 
@@ -694,7 +694,7 @@ The object literal passed into `formatValues(..)` is immediately parameter destr
 
 This snippet illustrates the idiom/pattern that an object is sometimes just a temporary transport container rather than a meaningful value in and of itself.
 
-## Containers Are Collections Of Properties
+## 9. Containers Are Collections Of Properties
 
 The most common usage of objects is as containers for multiple values. We create and manage property container objects by:
 

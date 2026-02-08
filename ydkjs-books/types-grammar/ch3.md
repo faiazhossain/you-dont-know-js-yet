@@ -11,7 +11,7 @@ I could write a whole book talking about objects in-depth; in fact, I already di
 
 Rather than repeat that book's content, here we'll focus our attention on how the `object` value-type behaves and interacts with other values in JS.
 
-## Types of Objects
+## 1. Types of Objects
 
 The `object` value-type comprises several sub-types, each with specialized behaviors, including:
 
@@ -24,7 +24,7 @@ The `object` value-type comprises several sub-types, each with specialized behav
 
 Beyond the specialized behaviors, one shared characteristic is that all objects can act as collections (of properties) holding values (including functions/methods).
 
-## Plain Objects
+## 2. Plain Objects
 
 The general object value-type is sometimes referred to as *plain ol' javascript objects* (POJOs).
 
@@ -65,7 +65,7 @@ address.isPrototypeOf(Object.prototype);    // true
 address.isPrototypeOf({});                  // false
 ```
 
-## Fundamental Objects
+## 3. Fundamental Objects
 
 JS defines several *fundamental* object types, which are instances of various built-in constructors, including:
 
@@ -97,7 +97,7 @@ How, there are internal *fundamental objects* for these two types, used for prot
 
 By contrast, for `null` and `undefined` primitive values, there aren't `Null()` or `Undefined()` "constructors", nor corresponding fundamental objects or prototypes.
 
-### Prototypes
+### 3.1 Prototypes
 
 Instances of the fundamental object constructors are `[[Prototype]]` linked to their constructors' `prototype` objects:
 
@@ -113,7 +113,7 @@ Instances of the fundamental object constructors are `[[Prototype]]` linked to t
 
 Any direct instance of the built-in constructors have `[[Prototype]]` delegated access to its respective `prototype` properties/methods. Moreover, corresponding primitive values also have such delegated access, by way of *auto-boxing*.
 
-### Automatic Objects
+### 3.2 Automatic Objects
 
 I've mentioned *auto-boxing* several times (including Chapters 1 and 2, and a few times so far in this chapter). It's finally time for us to explain that concept.
 
@@ -145,7 +145,7 @@ Since `null` and `undefined` have no corresponding fundamental objects, there is
 
 A subjective question to consider: is *auto-boxing* a form of coercion? I say it is, though some disagree. Internally, a primitive is converted to an object, meaning a change in value-type has occurred. Yes, it's temporary, but plenty of coercions are temporary. Moreover, the conversion is rather *implicit* (implied by the property/method access, but only happens internally). We'll revisit the nature of coercion in Chapter 4.
 
-## Other Built-in Objects
+## 4. Other Built-in Objects
 
 In addition to fundamental object constructors, JS defines a number of other built-in constructors that create further specialized object sub-types:
 
@@ -155,7 +155,7 @@ In addition to fundamental object constructors, JS defines a number of other bui
 * `new Int8Array(..)`, `new Uint32Array(..)`, etc -- indexed, typed-array collections
 * `new ArrayBuffer(..)`, `new SharedArrayBuffer(..)`, etc -- structured data collections
 
-## Arrays
+## 5. Arrays
 
 Arrays are objects that are specialized to behave as numerically indexed collections of values, as opposed to holding values at named properties like plain objects do.
 
@@ -187,15 +187,15 @@ favoriteNumbers.includes(42);       // true
 
 Some of the methods defined on `Array.prototype` -- for example, `push(..)`, `pop(..)`, `sort(..)`, etc -- behave by modifying the array value in place. Other methods -- for example, `concat(..)`, `map(..)`, `slice(..)` -- behave by creating a new array to return, leaving the original array intact. A third category of array functions -- for example, `indexOf(..)`, `includes(..)`, etc -- merely computes and returns a (non-array) result.
 
-## Regular Expressions
+## 6. Regular Expressions
 
 // TODO
 
-## Functions
+## 7. Functions
 
 // TODO
 
-## Proposed: Records/Tuples
+## 8. Proposed: Records/Tuples
 
 At the time of this writing, a (stage-2) proposal[^RecordsTuplesProposal] exists to add a new set of features to JS, which correspond closely to plain objects and arrays, but with some notable differences.
 

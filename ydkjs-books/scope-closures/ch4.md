@@ -9,7 +9,7 @@ The global scope of a JS program is a rich topic, with much more utility and nua
 
 Fully understanding the global scope is critical in your mastery of using lexical scope to structure your programs.
 
-## Why Global Scope?
+## 1. Why Global Scope?
 
 It's likely no surprise to readers that most applications are composed of multiple (sometimes many!) individual JS files. So how exactly do all those separate files get stitched together in a single runtime context by the JS engine?
 
@@ -113,13 +113,13 @@ These are just some of the many *globals* your programs will interact with.
 
 Most developers agree that the global scope shouldn't just be a dumping ground for every variable in your application. That's a mess of bugs just waiting to happen. But it's also undeniable that the global scope is an important *glue* for practically every JS application.
 
-## Where Exactly is this Global Scope?
+## 2. Where Exactly is this Global Scope?
 
 It might seem obvious that the global scope is located in the outermost portion of a file; that is, not inside any function or other block. But it's not quite as simple as that.
 
 Different JS environments handle the scopes of your programs, especially the global scope, differently. It's quite common for JS developers to harbor misconceptions without even realizing it.
 
-### Browser "Window"
+### 2.1 Browser "Window"
 
 With respect to treatment of the global scope, the most *pure* environment JS can be run in is as a standalone .js file loaded in a web page environment in a browser. I don't mean "pure" as in nothing automatically added—lots may be added!—but rather in terms of minimal intrusion on the code or interference with its expected global scope behavior.
 
@@ -227,7 +227,7 @@ But the truly surprising behavior is that even though we assigned the number `42
 
 With the exception of some rare corner cases like DOM element ID's and `window.name`, JS running as a standalone file in a browser page has some of the most *pure* global scope behavior we will encounter.
 
-### Web Workers
+### 2.2 Web Workers
 
 Web Workers are a web platform extension on top of browser-JS behavior, which allows a JS file to run in a completely separate thread (operating system wise) from the thread that's running the main JS program.
 
@@ -256,7 +256,7 @@ Just as with main JS programs, `var` and `function` declarations create mirrored
 
 So again, the global scope behavior we're seeing here is about as *pure* as it gets for running JS programs; perhaps it's even more *pure* since there's no DOM to muck things up!
 
-### Developer Tools Console/REPL
+### 2.3 Developer Tools Console/REPL
 
 Recall from Chapter 1 in *Get Started* that Developer Tools don't create a completely adherent JS environment. They do process JS code, but they also lean in favor of the UX interaction being most friendly to developers (aka, developer experience, or DX).
 
@@ -274,7 +274,7 @@ Although it might seem, while using the console/REPL, that statements entered in
 
 The take-away is that Developer Tools, while optimized to be convenient and useful for a variety of developer activities, are **not** suitable environments to determine or verify explicit and nuanced behaviors of an actual JS program context.
 
-### ES Modules (ESM)
+### 2.4 ES Modules (ESM)
 
 ES6 introduced first-class support for the module pattern (covered in Chapter 8). One of the most obvious impacts of using ESM is how it changes the behavior of the observably top-level scope in a file.
 
@@ -305,7 +305,7 @@ ESM encourages a minimization of reliance on the global scope, where you import 
 
 However, as noted earlier, there are still plenty of JS and web globals that you will continue to access from the global scope, whether you realize it or not!
 
-### Node
+### 2.5 Node
 
 One aspect of Node that often catches JS developers off-guard is that Node treats every single .js file that it loads, including the main one you start the Node process with, as a *module* (ES module or CommonJS module, see Chapter 8). The practical effect is that the top level of your Node programs **is never actually the global scope**, the way it is when loading a non-module file in the browser.
 
@@ -368,7 +368,7 @@ Here we add `studentName` as a property on the `global` object, and then in the 
 
 Remember, the identifier `global` is not defined by JS; it's specifically defined by Node.
 
-## Global This
+## 3. Global This
 
 Reviewing the JS environments we've looked at so far, a program may or may not:
 
@@ -412,7 +412,7 @@ Phew! That's certainly not ideal, but it works if you find yourself needing a re
 
 (The proposed name `globalThis` was fairly controversial while the feature was being added to JS. Specifically, I and many others felt the "this" reference in its name was misleading, since the reason you reference this object is to access to the global scope, never to access some sort of global/default `this` binding. There were many other names considered, but for a variety of reasons ruled out. Unfortunately, the name chosen ended up as a last resort. If you plan to interact with the global scope object in your programs, to reduce confusion, I strongly recommend choosing a better name, such as (the laughably long but accurate!) `theGlobalScopeObject` used here.)
 
-## Globally Aware
+## 4. Globally Aware
 
 The global scope is present and relevant in every JS program, even though modern patterns for organizing code into modules de-emphasizes much of the reliance on storing identifiers in that namespace.
 

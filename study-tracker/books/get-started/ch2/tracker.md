@@ -8,13 +8,13 @@
 
 | Section | Status | Confidence | Notes |
 |---------|--------|------------|-------|
-| Each File is a Program | [ ] | | |
-| Values | [ ] | | |
-| Declaring and Using Variables | [ ] | | |
-| Functions | [ ] | | |
-| Comparisons | [ ] | | |
-| How We Organize in JS | [ ] | | |
-| The Rabbit Hole Deepens | [ ] | | |
+| 1. Each File is a Program | [ ] | | |
+| 2. Values | [ ] | | |
+| 3. Declaring and Using Variables | [ ] | | |
+| 4. Functions | [ ] | | |
+| 5. Comparisons | [ ] | | |
+| 6. How We Organize in JS | [ ] | | |
+| 7. The Rabbit Hole Deepens | [ ] | | |
 
 ---
 

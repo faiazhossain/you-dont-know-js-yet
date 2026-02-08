@@ -11,7 +11,7 @@ What if you could leverage all the power of the objects, prototypes, and dynamic
 
 In fact, I would argue JS is inherently less class-oriented than the `class` keyword might appear. Because JS is a dynamic, prototypal language, its strong suit is actually... *delegation*.
 
-## Preamble
+## 1. Preamble
 
 Before we begin looking at delegation, I want to offer a word of caution. This perspective on JS's object `[[Prototype]]` and `this` function context mechanisms is *not* mainstream. It's *not* how framework authors and libraries utilize JS. You won't, to my knowledge, find any big apps out there using this pattern.
 
@@ -27,7 +27,7 @@ For the purposes of this chapter, I'm going to present delegation, as implemente
 
 The first step is to *de-construct* the `class` mechanism down to its individual parts. Then we'll cherry-pick and mix the parts a bit differently.
 
-## What's A Constructor, Anyway?
+## 2. What's A Constructor, Anyway?
 
 In Chapter 3, we saw `constructor(..)` as the main entry point for construction of a `class` instance. But the `constructor(..)` doesn't actually do any *creation* work, it's only *initialization* work. In other words, the instance is already created by the time the `constructor(..)` runs and initializes it -- e.g., `this.whatever` types of assignments.
 
@@ -95,7 +95,7 @@ point.toString();           // (3,4)
 
 Now you see the `__proto__` assignment that's setting up the internal `[[Prototype]]` linkage, which was the missing step 2. I used the `__proto__` here merely for illustration purposes; using `setPrototypeOf(..)` as shown in Chapter 4 would have accomplished the same task.
 
-### *New* Factory Instance
+### 2.1 *New* Factory Instance
 
 What do you think would happen if we used `new` to invoke the `Point2d(..)` function as shown here?
 
@@ -111,7 +111,7 @@ No... and yes. `anotherPoint` here is exactly the same object as it would have b
 
 That's right! Using a `new` keyword against a factory function might *feel* more ergonomic or familiar, but it's quite wasteful, in that it creates **two** objects, and wastefully throws one of them away.
 
-### Factory Initialization
+### 2.2 Factory Initialization
 
 In the current code example, the `Point2d(..)` function still looks an awful lot like a normal `constructor(..)` of a `class` definition. But what if we moved the initialization code to a separate function, say named `init(..)`:
 
@@ -250,7 +250,7 @@ var point = make(Point2d,3,4);
 var anotherPoint = make(Point2d,5,6);
 ```
 
-## Ditching Class Thinking
+## 3. Ditching Class Thinking
 
 Quite frankly, the *deconstruction* we just went through only ends up in slightly different, and maybe slightly better or slightly worse, code as compared to the `class` style. If that's all delegation was about, it probably wouldn't even be useful enough for more than a footnote, much less a whole chapter.
 
@@ -264,7 +264,7 @@ I'm not asserting there's anything wrong with those ways of approaching code. Bu
 
 For the rest of this chapter, I intend to discard both the syntax of `class` *and* the thinking of *class*.
 
-## Delegation Illustrated
+## 4. Delegation Illustrated
 
 So what is delegation about? At its core, it's about two or more *things* sharing the effort of completing a task.
 
@@ -323,7 +323,7 @@ The *point* here is: none of these four objects is a parent or child. They're al
 | :--- |
 | In the first edition of this book series, this book ("this & Object Prototypes") coined a term, "OLOO", which stands for "Objects Linked to Other Objects" -- to stand in contrast to "OO" ("Object Oriented"). In this preceding example, you can see the essence of OLOO: all we have are objects, linked to and cooperating with, other objects. I find this beautiful in its simplicity. |
 
-## Composing Peer Objects
+## 5. Composing Peer Objects
 
 Let's take *this delegation* even further.
 
@@ -436,7 +436,7 @@ It's through the `this` context, and the `[[Prototype]]` chain, that these three
 
 That's the *beauty* of virtual composition as realized by the delegation pattern in JS.
 
-### Flexible Context
+### 5.1 Flexible Context
 
 I mentioned above that we can pretty easily add other concrete objects into the mix. Here's an example:
 
@@ -501,7 +501,7 @@ For example, `Object.setPrototypeOf(..)` can be used to dynamically change the `
 
 The `this` keyword, and the `[[Prototype]]` link, are a tremendously flexible mechanism when you understand and leverage them fully.
 
-## Why *This*?
+## 6. Why *This*?
 
 OK, so it's hopefully clear that the delegation pattern leans heavily on implicit input, sharing context via `this` rather than through an explicit parameter.
 

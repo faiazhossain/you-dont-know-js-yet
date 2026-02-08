@@ -9,10 +9,10 @@
 | Section | Status | Confidence | Notes |
 |---------|--------|------------|-------|
 | Pillar 1: Scope and Closure | [ ] | | |
-| Pillar 2: Prototypes | [ ] | | |
+| 2. Pillar 2: Prototypes | [ ] | | |
 | Pillar 3: Types and Coercion | [ ] | | |
-| With the Grain | [ ] | | |
-| In Order | [ ] | | |
+| 4. With the Grain | [ ] | | |
+| 5. In Order | [ ] | | |
 
 ---
 

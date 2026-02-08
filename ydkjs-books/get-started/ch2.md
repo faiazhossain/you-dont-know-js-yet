@@ -15,7 +15,7 @@ Please don't expect this chapter to be a quick read. It's long and there's plent
 | :--- |
 | If you're still getting familiar with JS, I suggest you reserve plenty of extra time to work through this chapter. Take each section and ponder and explore the topic for awhile. Look through existing JS programs and compare what you see in them to the code and explanations (and opinions!) presented here. You will get a lot more out of the rest of the book and series with a solid foundation of JS's *nature*. |
 
-## Each File is a Program
+## 1. Each File is a Program
 
 Almost every website (web application) you use is comprised of many different JS files (typically with the .js file extension). It's tempting to think of the whole thing (the application) as one program. But JS sees it differently.
 
@@ -37,7 +37,7 @@ Though you wouldn't typically think about a module—a collection of state and p
 
 Regardless of which code organization pattern (and loading mechanism) is used for a file (standalone or module), you should still think of each file as its own (mini) program, which may then cooperate with other (mini) programs to perform the functions of your overall application.
 
-## Values
+## 2. Values
 
 The most fundamental unit of information in a program is a value. Values are data. They're how the program maintains state. Values come in two forms in JS: **primitive** and **object**.
 
@@ -119,7 +119,7 @@ hitchhikersGuide[ Symbol("meaning of life") ];
 
 You won't encounter direct usage of symbols very often in typical JS programs. They're mostly used in low-level code such as in libraries and frameworks.
 
-### Arrays And Objects
+### 2.1 Arrays And Objects
 
 Besides primitives, the other value type in JS is an object value.
 
@@ -159,7 +159,7 @@ console.log(`My name is ${ me.first }.`);
 
 Here, `me` represents an object, and `first` represents the name of a location of information in that object (value collection). Another syntax option that accesses information in an object by its property/key uses the square-brackets `[ ]`, such as  `me["first"]`.
 
-### Value Type Determination
+### 2.2 Value Type Determination
 
 For distinguishing values, the `typeof` operator tells you its built-in type, if primitive, or `"object"` otherwise:
 
@@ -182,7 +182,7 @@ Converting from one value type to another, such as from string to number, is ref
 
 Primitive values and object values behave differently when they're assigned or passed around. We'll cover these details in Appendix A, "Values vs References."
 
-## Declaring and Using Variables
+## 3. Declaring and Using Variables
 
 To be explicit about something that may not have been obvious in the previous section: in JS programs, values can either appear as literal values (as many of the preceding examples illustrate), or they can be held in variables; think of variables as just containers for values.
 
@@ -293,7 +293,7 @@ catch (err) {
 
 The `err` is a block-scoped variable that exists only inside the `catch` clause, as if it had been declared with `let`.
 
-## Functions
+## 4. Functions
 
 The word "function" has a variety of meanings in programming. For example, in the world of Functional Programming, "function" has a precise mathematical definition and implies a strict set of rules to abide by.
 
@@ -374,11 +374,11 @@ In this snippet, references to three functions (`greeting()`, `question()`, and 
 
 There are many varied forms that `function`s take in JS. We dig into these variations in Appendix A, "So Many Function Forms."
 
-## Comparisons
+## 5. Comparisons
 
 Making decisions in programs requires comparing values to determine their identity and relationship to each other. JS has several mechanisms to enable value comparison, so let's take a closer look at them.
 
-### Equal...ish
+### 5.1 Equal...ish
 
 The most common comparison in JS programs asks the question, "Is this X value *the same as* that Y value?" What exactly does "the same as" really mean to JS, though?
 
@@ -456,7 +456,7 @@ JS does not provide a mechanism for structural equality comparison of object val
 
 But beware, it's more complicated than you'll assume. For example, how might you determine if two function references are "structurally equivalent"? Even stringifying to compare their source code text wouldn't take into account things like closure. JS doesn't provide structural equality comparison because it's almost intractable to handle all the corner cases!
 
-### Coercive Comparisons
+### 5.2 Coercive Comparisons
 
 Coercion means a value of one type being converted to its respective representation in another type (to whatever extent possible). As we'll discuss in Chapter 4, coercion is a core pillar of the JS language, not some optional feature that can reasonably be avoided.
 
@@ -513,13 +513,13 @@ The wiser approach is not to avoid coercive comparisons, but to embrace and lear
 
 Coercive comparisons crop up in other places in JS, such as conditionals (`if`, etc.), which we'll revisit in Appendix A, "Coercive Conditional Comparison."
 
-## How We Organize in JS
+## 6. How We Organize in JS
 
 Two major patterns for organizing code (data and behavior) are used broadly across the JS ecosystem: classes and modules. These patterns are not mutually exclusive; many programs can and do use both. Other programs will stick with just one pattern, or even neither!
 
 In some respects, these patterns are very different. But interestingly, in other ways, they're just different sides of the same coin. Being proficient in JS requires understanding both patterns and where they are appropriate (and not!).
 
-### Classes
+### 6.1 Classes
 
 The terms "object-oriented," "class-oriented," and "classes" are all very loaded full of detail and nuance; they're not universal in definition.
 
@@ -675,7 +675,7 @@ The fact that both the inherited and overridden methods can have the same name a
 
 Inheritance is a powerful tool for organizing data/behavior in separate logical units (classes), but allowing the child class to cooperate with the parent by accessing/using its behavior and data.
 
-### Modules
+### 6.2 Modules
 
 The module pattern has essentially the same goal as the class pattern, which is to group data and behavior together into logical units. Also like classes, modules can "include" or "access" the data and behaviors of other modules, for cooperation's sake.
 
@@ -868,7 +868,7 @@ As shown, ES modules can use *classic modules* internally if they need to suppor
 
 If your module only needs a single instance, you can skip the extra layers of complexity: `export` its public methods directly.
 
-## The Rabbit Hole Deepens
+## 7. The Rabbit Hole Deepens
 
 As promised at the top of this chapter, we just glanced over a wide surface area of the main parts of the JS language. Your head may still be spinning, but that's entirely natural after such a firehose of information!
 

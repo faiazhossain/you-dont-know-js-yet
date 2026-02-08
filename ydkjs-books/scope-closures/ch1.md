@@ -9,7 +9,7 @@ The answers to questions like these take the form of well-defined rules called s
 
 Our first step is to uncover how the JS engine processes our program **before** it runs.
 
-## About This Book
+## 1. About This Book
 
 Welcome to book 2 in the *You Don't Know JS Yet* series! If you already finished *Get Started* (the first book), you're in the right spot! If not, before you proceed I encourage you to *start there* for the best foundation.
 
@@ -21,7 +21,7 @@ JS functions are themselves first-class values; they can be assigned and passed 
 
 Modules are a code organization pattern characterized by public methods that have privileged access (via closure) to hidden variables and functions in the internal scope of the module.
 
-## Compiled vs. Interpreted
+## 2. Compiled vs. Interpreted
 
 You may have heard of *code compilation* before, but perhaps it seems like a mysterious black box where source code slides in one end and executable programs pop out the other.
 
@@ -43,7 +43,7 @@ Are these two processing models mutually exclusive? Generally, yes. However, the
 
 Recall that we surveyed this topic in Chapter 1 of the *Get Started* book. Our conclusion there is that JS is most accurately portrayed as a **compiled language**. For the benefit of readers here, the following sections will revisit and expand on that assertion.
 
-## Compiling Code
+## 3. Compiling Code
 
 But first, why does it even matter whether JS is compiled or not?
 
@@ -73,7 +73,7 @@ So, I'm painting only with broad strokes here. But you'll see shortly why *these
 
 JS engines don't have the luxury of an abundance of time to perform their work and optimizations, because JS compilation doesn't happen in a build step ahead of time, as with other languages. It usually must happen in mere microseconds (or less!) right before the code is executed. To ensure the fastest performance under these constraints, JS engines use all kinds of tricks (like JITs, which lazy compile and even hot re-compile); these are well beyond the "scope" of our discussion here.
 
-### Required: Two Phases
+### 3.1 Required: Two Phases
 
 To state it as simply as possible, the most important observation we can make about processing of JS programs is that it occurs in (at least) two phases: parsing/compilation first, then execution.
 
@@ -166,7 +166,7 @@ Classifying JS as a compiled language is not concerned with the distribution mod
 
 We need proper mental models of how the JS engine treats our code if we want to understand JS and scope effectively.
 
-## Compiler Speak
+## 4. Compiler Speak
 
 With awareness of the two-phase processing of a JS program (compile, then execute), let's turn our attention to how the JS engine identifies variables and determines the scopes of a program as it is compiled.
 
@@ -202,7 +202,7 @@ How do you know if a variable is a *target*? Check if there is a value that is b
 
 For the JS engine to properly handle a program's variables, it must first label each occurrence of a variable as *target* or *source*. We'll dig in now to how each role is determined.
 
-### Targets
+### 4.1 Targets
 
 What makes a variable a *target*? Consider:
 
@@ -246,7 +246,7 @@ A `function` declaration is a special case of a *target* reference. You can thin
 | :--- |
 | This automatic association of function and variable is referred to as "function hoisting", and is covered in detail in Chapter 5. |
 
-### Sources
+### 4.2 Sources
 
 So we've identified all five *target* references in the program. The other variable references must then be *source* references (because that's the only other option!).
 
@@ -260,7 +260,7 @@ In `getStudentName(73)`, `getStudentName` is a *source* reference (which we hope
 
 What's the practical importance of understanding *targets* vs. *sources*? In Chapter 2, we'll revisit this topic and cover how a variable's role impacts its lookup (specifically, if the lookup fails).
 
-## Cheating: Runtime Scope Modifications
+## 5. Cheating: Runtime Scope Modifications
 
 It should be clear by now that scope is determined as the program is compiled, and should not generally be affected by runtime conditions. However, in non-strict-mode, there are technically still two ways to cheat this rule, modifying a program's scopes during runtime.
 
@@ -292,7 +292,7 @@ The global scope was not modified here, but `badIdea` was turned into a scope at
 
 At all costs, avoid `eval(..)` (at least, `eval(..)` creating declarations) and `with`. Again, neither of these cheats is available in strict-mode, so if you just use strict-mode (you should!) then the temptation goes away!
 
-## Lexical Scope
+## 6. Lexical Scope
 
 We've demonstrated that JS's scope is determined at compile time; the term for this kind of scope is "lexical scope". "Lexical" is associated with the "lexing" stage of compilation, as discussed earlier in this chapter.
 

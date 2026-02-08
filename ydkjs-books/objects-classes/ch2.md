@@ -11,7 +11,7 @@ To fully understand the object mechanism in JS, and get the most out of using ob
 
 These characteristics that define the underlying behavior of objects are collectively referred to in formal terms as the "metaobject protocol" (MOP)[^mop]. The MOP is useful not only for understanding how objects will behave, but also for overriding the default behaviors of objects to bend the language to fit our program's needs more fully.
 
-## Property Descriptors
+## 1. Property Descriptors
 
 Each property on an object is internally described by what's known as a "property descriptor". This is, itself, an object (aka, "metaobject") with several properties (aka "attributes") on it, dictating how the target property behaves.
 
@@ -71,7 +71,7 @@ Object.defineProperties(anotherObj,{
 
 It's not very common to see this usage, because it's rarer that you need to specifically control the definition of multiple properties. But it may be useful in some cases.
 
-### Accessor Properties
+### 1.1 Accessor Properties
 
 A property descriptor usually defines a `value` property, as shown above. However, a special kind of property, known as an "accessor property" (aka, a getter/setter), can be defined. For these a property like this, its descriptor does not define a fixed `value` property, but would instead look something like this:
 
@@ -107,7 +107,7 @@ anotherObj.fave;
 // 123
 ```
 
-### Enumerable, Writable, Configurable
+### 1.2 Enumerable, Writable, Configurable
 
 Besides `value` or `get()` / `set(..)`, the other 3 attributes of a property descriptor are (as shown above):
 
@@ -121,7 +121,7 @@ The `writable` attribute controls whether a `value` assignment (via `=`) is allo
 
 The `configurable` attribute controls whether a property's **descriptor** can be re-defined/overwritten. A property that's `configurable: false` is locked to its definition, and any further attempts to change it with `Object.defineProperty(..)` will fail. A non-configurable property can still be assigned new values (via `=`), as long as `writable: true` is still set on the property's descriptor.
 
-## Object Sub-Types
+## 2. Object Sub-Types
 
 There are a variety of specialized sub-types of objects in JS. But by far, the two most common ones you'll interact with are arrays and `function`s.
 
@@ -129,7 +129,7 @@ There are a variety of specialized sub-types of objects in JS. But by far, the t
 | :--- |
 | By "sub-type", we mean the notion of a derived type that has inherited the behaviors from a parent type but then specialized or extended those behaviors. In other words, values of these sub-types are fully objects, but are also *more than just* objects. |
 
-### Arrays
+### 2.1 Arrays
 
 Arrays are objects that are specifically intended to be **numerically indexed**, rather than using string named property locations. They are still objects, so a named property like `favoriteNumber` is legal. But it's greatly frowned upon to mix named properties into numerically indexed arrays.
 
@@ -193,7 +193,7 @@ myList[9];                  // undefined
 
 You might wonder why empty slots are so bad? One reason: there are APIs in JS, like array's `map(..)`, where empty slots are surprisingly skipped over! Never, ever intentionally create empty slots in your arrays. This in undebateably one of JS's "bad parts".
 
-### Functions
+### 2.2 Functions
 
 I don't have much specifically to say about functions here, other than to point out that they are also sub-object-types. This means that in addition to being executable, they can also have named properties added to or accessed from them.
 
@@ -223,7 +223,7 @@ extraInfo.set(help,"this is some important information");
 extraInfo.get(help);   // "this is some important information"
 ```
 
-## Object Characteristics
+## 3. Object Characteristics
 
 In addition to defining behaviors for specific properties, certain behaviors are configurable across the whole object:
 
@@ -231,7 +231,7 @@ In addition to defining behaviors for specific properties, certain behaviors are
 * sealed
 * frozen
 
-### Extensible
+### 3.1 Extensible
 
 Extensibility refers to whether an object can have new properties defined/added to it. By default, all objects are extensible, but you can change shut off extensibility for an object:
 
@@ -250,21 +250,21 @@ myObj.favoriteNumber = 123;                // works fine
 
 In non-strict-mode, an assignment that creates a new property will silently fail, whereas in strict mode an exception will be thrown.
 
-### Sealed
+### 3.2 Sealed
 
 // TODO
 
-### Frozen
+### 3.3 Frozen
 
 // TODO
 
-## Extending The MOP
+## 4. Extending The MOP
 
 As mentioned at the start of this chapter, objects in JS behave according to a set of rules referred to as the Metaobject Protocol (MOP)[^mop]. Now that we understand more fully how objects work by default, we want to turn our attention to how we can hook into some of these default behaviors and override/customize them.
 
 // TODO
 
-## `[[Prototype]]` Chain
+## 5. `[[Prototype]]` Chain
 
 One of the most important, but least obvious, characteristics of an object (part of the MOP) is referred to as its "prototype chain"; the official JS specification notation is `[[Prototype]]`. Make sure not to confuse this `[[Prototype]]` with a public property named `prototype`. Despite the naming, these are distinct concepts.
 
@@ -341,7 +341,7 @@ This form is now considered the more preferable and robust option, and the insta
 
 Somewhat unfortunately and inconsistently, there's not (yet, as of time of writing) corresponding static utilities, like `Object.isPrototype(..)` (instead of the instance method `isPrototypeOf(..)`). But at least `Object.hasOwn(..)` exists, so that's progress.
 
-### Creating An Object With A Different `[[Prototype]]`
+### 5.1 Creating An Object With A Different `[[Prototype]]`
 
 By default, any object you create in your programs will be `[[Prototype]]`-linked to that `Object.prototype` object. However, you can create an object with a different linkage like this:
 
@@ -390,7 +390,7 @@ It can be quite useful to create an object with no `[[Prototype]]` linkage to `O
 
 Moreover, an object with an empty `[[Prototype]]` is safe from any accidental "inheritance" collision between its own property names and the ones it "inherits" from elsewhere. These types of (useful!) objects are sometimes referred to in popular parlance as "dictionary objects".
 
-### `[[Prototype]]` vs `prototype`
+### 5.2 `[[Prototype]]` vs `prototype`
 
 Notice that public property name `prototype` in the name/location of this special object, `Object.prototype`? What's that all about?
 
@@ -417,7 +417,7 @@ But where do functions themselves (as objects!) link to, `[[Prototype]]` wise? T
 
 In other words, you can think of functions themselves as having been "created" by a `new Function(..)` call, and then `[[Prototype]]`-linked to the `Function.prototype` object. This object contains properties/methods all functions "inherit" by default, such as `toString()` (to string serialize the source code of a function) and `call(..)` / `apply(..)` / `bind(..)` (we'll explain these later in this book).
 
-## Objects Behavior
+## 6. Objects Behavior
 
 Properties on objects are internally defined and controlled by a "descriptor" metaobject, which includes attributes such as `value` (the property's present value) and `enumerable` (a boolean controlling whether the property is included in enumerable-only listings of properties/property names).
 

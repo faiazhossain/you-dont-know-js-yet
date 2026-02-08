@@ -11,7 +11,7 @@ Chapter 1 was quite a lot to take in, much more involved than I bet most readers
 
 Once you're clear headed and ready to move on, let's dig into certain behaviors implied by value types for all their respective values. We'll take a careful and  closer look at all of these various behaviors.
 
-## Primitive Immutability
+## 1. Primitive Immutability
 
 All primitive values are immutable, meaning nothing in a JS program can reach into the contents of the value and modify it in any way.
 
@@ -55,7 +55,7 @@ The nature of primitive values being immutable is not affected *in any way* by h
 
 A property on an object may be marked as read-only -- with the `writable: false` descriptor attribute, as discussed in the "Objects & Classes" title of this series. But that still has no affect on the nature of the value, only on preventing the reassignment of the property.
 
-### Primitives With Properties?
+### 1.1 Primitives With Properties?
 
 Additionally, properties *cannot* be added to any primitive values:
 
@@ -100,7 +100,7 @@ Additionally, most of the primitive value-types define their own methods with sp
 | :--- |
 | As already briefly mentioned in Chapter 1, technically, these sorts of property/method accesses on primitive values are facilitated by an implicit coercive behavior called *auto-boxing*. We'll cover this in detail in "Automatic Objects" in Chapter 3. |
 
-## Primitive Assignments
+## 2. Primitive Assignments
 
 Any assignment of a primitive value from one variable/container to another is a *value-copy*:
 
@@ -128,11 +128,11 @@ myAge;              // 43
 yourAge;            // 42 <-- unchanged
 ```
 
-## String Behaviors
+## 3. String Behaviors
 
 String values have a number of specific behaviors that every JS developer should be aware of.
 
-### String Character Access
+### 3.1 String Character Access
 
 Though strings are not actually arrays, JS allows `[ .. ]` array-style access of a character at a numeric (`0`-based) index:
 
@@ -154,7 +154,7 @@ If the value/expression resolves to a number outside the integer range of `0` - 
 | :--- |
 |  We'll cover coercion in-depth later in the book. |
 
-### Character Iteration
+### 3.2 Character Iteration
 
 Strings are not arrays, but they certainly mimic arrays closely in many ways. One such behavior is that, like arrays, strings are iterables. This means that the characters (code-units) of a string can be iterated individually:
 
@@ -191,7 +191,7 @@ it.next();      // { value: undefined, done: true }
 | :--- |
 | The specifics of the iterator protocol, including the fact that the `{ value: "e" .. }` result still shows `done: false`, are covered in detail in the "Sync & Async" title of this series. |
 
-### Length Computation
+### 3.3 Length Computation
 
 As mentioned in Chapter 1, string values have a `length` property that automatically exposes the length of the string; this property can only be accessed; attempts to set it are silently ignored.
 
@@ -257,7 +257,7 @@ It would take replicating most of a platform's complex Unicode rendering logic t
 
 Counting the *length* of a string to match our human intuitions is a remarkably challenging task, perhaps more of an art than a science. We can get acceptable approximations in many cases, but there's plenty of other cases that may confound our programs.
 
-### Internationalization (i18n) and Localization (l10n)
+### 3.4 Internationalization (i18n) and Localization (l10n)
 
 To serve the growing need for JS programs to operate as expected in any international language/culture context, the ECMAScript committee also publishes the ECMAScript Internationalization API. [^INTLAPI]
 
@@ -337,7 +337,7 @@ for (
 | :--- |
 | The `segment(..)` method (from instances of`Intl.Segmenter`) returns a standard JS iterator, which the `for..of` loop here consumes. More on iteration protocols in the "Sync & Async" title of this series. |
 
-### String Comparison
+### 3.5 String Comparison
 
 String values can be compared (for both equality and relational ordering) to other string values, using various built-in operators. It's important to keep in mind that such comparisons are sensitive to the actual string contents, including especially the underlying code-points from non-BPM Unicode characters.
 
@@ -508,7 +508,7 @@ studentNames;
 // [ "Jason", "Kyle", "Lisa" ]
 ```
 
-### String Concatenation
+### 3.6 String Concatenation
 
 Two or more string values can be concatenated (combined) into a new string value, using the `+` operator:
 
@@ -542,7 +542,7 @@ status;         // There are 7 users online
 
 Other options for string concatenation include `"one".concat("two","three")` and `[ "one", "two", "three" ].join("")`, but these kinds of approaches are only preferable when the number of strings to concatenate is dependent on runtime conditions/computation. If the string has a fixed/known set of content, as above, template literals are the better option.
 
-### String Value Methods
+### 3.7 String Value Methods
 
 String values provide a whole slew of additional string-specific methods (as properties):
 
@@ -606,7 +606,7 @@ greeting.repeat(2);                     // Hello!Hello!
 greeting;                               // Hello!
 ```
 
-### Static `String` Helpers
+### 3.8 Static `String` Helpers
 
 The following string utility functions are provided directly on the `String` object, rather than as methods on individual string values:
 
@@ -625,11 +625,11 @@ String(undefined);      // "undefined"
 
 We'll cover much more detail about such type coercions in a later chapter.
 
-## Number Behaviors
+## 4. Number Behaviors
 
 Numbers are used for a variety of tasks in our programs, but mostly for mathematical computations. Pay close attention to how JS numbers behave, to ensure the outcomes are as expected.
 
-### Floating Point Imprecision
+### 4.1 Floating Point Imprecision
 
 We need to revisit our discussion of IEEE-754 from Chapter 1.
 
@@ -720,7 +720,7 @@ Unless you really know what you're doing, you should just *not* use this `Number
 | :--- |
 | If you'd like to read more details and solid advice on this topic, I highly recommend reading this post. [^EpsilonBad] But if we can't use `Number.EPSILON` to avoid the perils of floating-point skew, what do we do? If you can avoid floating-point altogether by scaling all your numbers up so they're all whole number integers (or bigints) while performing math, do so. Only deal with decimal values when you have to output/represent a final value after all the math is done. If that's not possible/practical, use an arbitrary precision decimal emulation library and avoid `number` values entirely. Or do your math in another external programming environment that's not based on IEEE-754. |
 
-### Numeric Comparison
+### 4.2 Numeric Comparison
 
 Like strings, number values can be compared (for both equality and relational ordering) using the same operators.
 
@@ -795,7 +795,7 @@ Remember: just like `==`, the `<` and `>` operators are also coercive, meaning t
 
 If you're doing relational comparisons between numbers, the only way to avoid coercion is to ensure that the comparisons always have two numbers. Otherwise, these operators will do *coercive relational* comparisons similar to how `==` performs *coercive equality* comparisons.
 
-### Mathematical Operators
+### 4.3 Mathematical Operators
 
 As I asserted earlier, the main reason to have numbers in a programming language is to perform mathematical operations with them. So let's talk about how we do so.
 
@@ -876,7 +876,7 @@ myAge;                  // 43
 
 It may seem peculiar that prefix and postfix positions seem to give the same result (incrementing or decrementing) in such examples. The difference is subtle, and isn't related to the final reassigned result. We'll revisit these particular operators in a later chapter to dig into the positional differences.
 
-### Bitwise Operators
+### 4.4 Bitwise Operators
 
 JS provides several bitwise operators to perform bit-level operations on number values.
 
@@ -914,7 +914,7 @@ Since the bitwise operators act only on 32-bit integers, the `| 0` operation tru
 | :--- |
 | A common misconception is that `| 0` is like *floor* (i.e., `Math.floor(..)`). The result of `| 0` agrees with `Math.floor(..)` on positive numbers, but differs on negative numbers, because by standard definition, *floor* is an operation that rounds-down towards `-Infinity`. `| 0` merely discards the decimal bits, which is in fact truncation. |
 
-### Number Value Methods
+### 4.5 Number Value Methods
 
 Number values provide the following methods (as properties) for number-specific operations:
 
@@ -968,7 +968,7 @@ Values of `bigint` type cannot have decimals, so the parsing is unambiguous that
 42n.toString();                 // 42
 ```
 
-### Static `Number` Properties
+### 4.6 Static `Number` Properties
 
 * `Number.EPSILON`: The smallest value possible between `1` and the next highest number
 
@@ -980,7 +980,7 @@ Values of `bigint` type cannot have decimals, so the parsing is unambiguous that
 
 * `Number.NEGATIVE_INFINITY` / `Number.POSITIVE_INFINITY`: Same as global `-Infinity` and `Infinity`, the values that represent the largest (non-finite) values furthest from `0`
 
-### Static `Number` Helpers
+### 4.7 Static `Number` Helpers
 
 * `Number.isFinite(..)`: returns a boolean indicating if the value is finite -- a `number` that's not `NaN`, nor one of the two infinities
 
@@ -990,7 +990,7 @@ Values of `bigint` type cannot have decimals, so the parsing is unambiguous that
 
 * `Number.parseFloat(..)` / `Number.parseInt(..)`: utilities to parse string values for numeric digits, left-to-right, until the end of the string or the first non-float (or non-integer) character is encountered
 
-### Static `Math` Namespace
+### 4.8 Static `Math` Namespace
 
 Since the main usage of `number` values is for performing mathematical operations, JS includes many standard mathematical constants and operation utilities on the `Math` namespace.
 
@@ -1015,7 +1015,7 @@ Unlike `Number`, which is also the `Number(..)` function (for number coercion), 
 | :--- |
 | One peculiar member of the `Math` namespace is `Math.random()`, for producing a random floating point value between `0` and `1.0`. It's unusual to consider random number generation -- a task that's inherently stateful/side-effect'ing -- as a mathematical operation. It's also long been a footgun security-wise, as the pseudo-random number generator (PRNG) that JS uses is *not* secure (can be predicted) from a cryptography perspective. The web platform stepped in several years ago with the safer `crypto.getRandomValues(..)` API (based on a better PRNG), which fills a typed-array with random bits that can be interpreted as one or more integers (of type-specified maximum magnitude). Using `Math.random()` is universally discouraged now. |
 
-### BigInts and Numbers Don't Mix
+### 4.9 BigInts and Numbers Don't Mix
 
 As we covered in Chapter 1, values of `number` type and `bigint` type cannot mix in the same operations. That can trip you up even if you're doing a simple increment of the value (like in a loop):
 
@@ -1050,7 +1050,7 @@ BigInt(Infinity);           // RangeError thrown!
 Number(2n ** 1024n);        // Infinity
 ```
 
-## Primitives Are Foundational
+## 5. Primitives Are Foundational
 
 Over the last two chapters, we've dug deep into how primitive values behave in JS. I bet more than a few readers were, like me, ready to skip over these topics. But now, hopefully, you see the importance of understanding these concepts.
 

@@ -22,14 +22,14 @@
 
 | Section | Status | Date | Confidence (1-5) | Notes |
 |---------|--------|------|-----------------|-------|
-| About This Book | [ ] | | | |
-| What's With That Name? | [ ] | | | |
-| Language Specification | [ ] | | | |
-| Many Faces | [ ] | | | |
-| Backwards & Forwards | [ ] | | | |
-| What's in an Interpretation? | [ ] | | | |
-| Strictly Speaking | [ ] | | | |
-| Defined | [ ] | | | |
+| 1. About This Book | [ ] | | | |
+| 2. What's With That Name? | [ ] | | | |
+| 3. Language Specification | [ ] | | | |
+| 4. Many Faces | [ ] | | | |
+| 5. Backwards & Forwards | [ ] | | | |
+| 6. What's in an Interpretation? | [ ] | | | |
+| 7. Strictly Speaking | [ ] | | | |
+| 8. Defined | [ ] | | | |
 
 ---
 

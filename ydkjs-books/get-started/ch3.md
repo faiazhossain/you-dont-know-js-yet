@@ -9,7 +9,7 @@ Be aware: this chapter digs much deeper than you're likely used to thinking abou
 
 Don't run so quickly through this material that you get lost in the weeds. As I've said a dozen times already, **take your time**. Even still, you'll probably finish this chapter with remaining questions. That's OK, because there's a whole book series ahead of you to keep exploring!
 
-## Iteration
+## 1. Iteration
 
 Since programs are essentially built to process data (and make decisions on that data), the patterns used to step through the data have a big impact on the program's readability.
 
@@ -27,7 +27,7 @@ The importance of the iterator pattern is in adhering to a *standard* way of pro
 
 After many years of various JS community efforts around mutually agreed-upon iteration techniques, ES6 standardized a specific protocol for the iterator pattern directly in the language. The protocol defines a `next()` method whose return is an object called an *iterator result*; the object has `value` and `done` properties, where `done` is a boolean that is `false` until the iteration over the underlying data source is complete.
 
-### Consuming Iterators
+### 1.1 Consuming Iterators
 
 With the ES6 iteration protocol in place, it's workable to consume a data source one value at a time, checking after each `next()` call for `done` to be `true` to stop the iteration. But this approach is rather manual, so ES6 also included several mechanisms (syntax and APIs) for standardized consumption of these iterators.
 
@@ -74,7 +74,7 @@ doSomethingUseful( ...it );
 
 In both cases, the iterator-spread form of `...` follows the iterator-consumption protocol (the same as the `for..of` loop) to retrieve all available values from an iterator and place (aka, spread) them into the receiving context (array, argument list).
 
-### Iterables
+### 1.2 Iterables
 
 The iterator-consumption protocol is technically defined for consuming *iterables*; an iterable is a value that can be iterated over.
 
@@ -166,7 +166,7 @@ Beyond just using built-in iterables, you can also ensure your own data structur
 | :--- |
 | You may have noticed a nuanced shift that occurred in this discussion. We started by talking about consuming **iterators**, but then switched to talking about iterating over **iterables**. The iteration-consumption protocol expects an *iterable*, but the reason we can provide a direct *iterator* is that an iterator is just an iterable of itself! When creating an iterator instance from an existing iterator, the iterator itself is returned. |
 
-## Closure
+## 2. Closure
 
 Perhaps without realizing it, almost every JS developer has made use of closure. In fact, closure is one of the most pervasive programming functionalities across a majority of languages. It might even be as important to understand as variables or loops; that's how fundamental it is.
 
@@ -265,7 +265,7 @@ Closure is one of the most prevalent and important programming patterns in any l
 
 If you're still feeling unclear or shaky about closure, the majority of Book 2, *Scope & Closures* is focused on the topic.
 
-## `this` Keyword
+## 3. `this` Keyword
 
 One of JS's most powerful mechanisms is also one of its most misunderstood: the `this` keyword. One common misconception is that a function's `this` refers to the function itself. Because of how `this` works in other languages, another misconception is that `this` points the instance that a method belongs to. Both are incorrect.
 
@@ -338,7 +338,7 @@ The same context-aware function invoked three different ways, gives different an
 
 The benefit of `this`-aware functions—and their dynamic context—is the ability to more flexibly re-use a single function with data from different objects. A function that closes over a scope can never reference a different scope or set of variables. But a function that has dynamic `this` context awareness can be quite helpful for certain tasks.
 
-## Prototypes
+## 4. Prototypes
 
 Where `this` is a characteristic of function execution, a prototype is a characteristic of an object, and specifically resolution of a property access.
 
@@ -366,7 +366,7 @@ homework.toString();    // [object Object]
 
 `homework.toString()` works even though `homework` doesn't have a `toString()` method defined; the delegation invokes `Object.prototype.toString()` instead.
 
-### Object Linkage
+### 4.1 Object Linkage
 
 To define an object prototype linkage, you can create the object using the `Object.create(..)` utility:
 
@@ -429,7 +429,7 @@ The `topic` on `otherHomework` is "shadowing" the property of the same name on t
 | :--- |
 | Another frankly more convoluted but perhaps still more common way of creating an object with a prototype linkage is using the "prototypal class" pattern, from before `class` (see Chapter 2, "Classes") was added in ES6. We'll cover this topic in more detail in Appendix A, "Prototypal 'Classes'". |
 
-### `this` Revisited
+### 4.2 `this` Revisited
 
 We covered the `this` keyword earlier, but its true importance shines when considering how it powers prototype-delegated function calls. Indeed, one of the main reasons `this` supports dynamic context based on how the function is called is so that method calls on objects which delegate through the prototype chain still maintain the expected `this`.
 
@@ -467,7 +467,7 @@ The preceding code snippet would be far less useful if `this` was resolved to `h
 
 Unlike many other languages, JS's `this` being dynamic is a critical component of allowing prototype delegation, and indeed `class`, to work as expected!
 
-## Asking "Why?"
+## 5. Asking "Why?"
 
 The intended take-away from this chapter is that there's a lot more to JS under the hood than is obvious from glancing at the surface.
 
